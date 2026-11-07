@@ -65,3 +65,7 @@
 - `morph-preview.html` 可重播或拖动 0–1800ms 进度；`?frame=first` / `?frame=last` 保留静态端点。当前 30 天插画/GIF 素材保持独立。
 
 [直接预览 Karma](https://xibahbah.github.io/bamboo-mobile/?view=karma)。竹口内嵌收拢、竹身连续生长。Karma 仅保留一句话和 Enter Community 按钮，以 720ms 轻柔上浮、清晰淡入呈现。
+
+## Contributors
+
+- [HEGOBAK](https://github.com/HEGOBAK)：第二页捐款与竹子成长的产品构思、成长规则、交互方向、原型迭代与队友交接。[贡献说明](contributions/HEGOBAK/README.md)。
