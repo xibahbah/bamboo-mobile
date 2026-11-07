@@ -1,4 +1,4 @@
-"""Original flat vector endpoints for review. No motion or raster blending yet."""
+"""Original flat vector endpoints. Animated geometry is built separately."""
 from pathlib import Path
 import json
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,7 +24,7 @@ for key,art in frame.items():
  # Full phone composition, identical layout at both endpoints.
  svg=f'''<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
  <rect width="390" height="844" fill="#f5f7f2"/>
- <svg x="75" y="243" width="240" height="260" viewBox="0 0 240 260">{art}</svg>
+ <svg x="45" y="210" width="300" height="325" viewBox="0 0 240 260">{art}</svg>
  <text x="195" y="766" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="600" letter-spacing="-1.4" fill="#294b39">bamboo</text>
  </svg>'''
  (OUT/f'{key}-frame.svg').write_text(svg)

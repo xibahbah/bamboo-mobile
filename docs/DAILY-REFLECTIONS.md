@@ -13,4 +13,4 @@
 
 选择逻辑：使用 America/Los_Angeles 的日历日期，不按浏览器所在时区。每天固定一条，30 天循环。跨午夜会在下次打开每日一句时换句。现在是内置内容，不依赖外部请求或假加载时间。
 
-此阶段开场为首尾静帧；用户 Continue 后显示每日一句，再 Enter community 进入主页。完整版形变应触发同一个 BambooDaily.show()，不改资金和 streak。
+开场现为 1.8 秒矢量形变，结束后调用 BambooDaily.show() 显示每日一句，再 Enter community 进入主页。动画完成、跳过、重播均不改资金和 streak。

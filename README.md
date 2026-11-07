@@ -4,7 +4,7 @@
 
 代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Public GitHub repo：https://github.com/xibahbah/bamboo-mobile 。目前此仓库已公开，供三人协作。
 
-当前实现是可交互的手机优先网页 UI：开场首尾帧预览、左上侧栏、组织与个人混合信息流、个人 Stories / Recipes / Culture、点赞收藏、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
+当前实现是可交互的手机优先网页 UI：1.8 秒投币竹节形变开场、左上侧栏、组织与个人混合信息流、个人 Stories / Recipes / Culture、点赞收藏、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
 
 ## 成长素材包
 
@@ -51,13 +51,15 @@
 
 ## 简洁 UI 与测试
 
-默认极简 Bamboo green 背景，You → Settings 可换 Morning mist / Soft clay。Hover、植物与转场动画暂时关闭。`npm ci` 后执行 `npm test` 跑 30 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
+默认极简 Bamboo green 背景，You → Settings 可换 Morning mist / Soft clay。开场动效已启用；其余 hover 和环境动效保持关闭。`npm ci` 后执行 `npm test` 跑 36 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
 
 ## 本轮可交互模拟
 
-- 主页面：[在线 App](https://xibahbah.github.io/bamboo-mobile/)（开场静态帧 → 每日一句 → 主页）。
+- 主页面：[在线 App](https://xibahbah.github.io/bamboo-mobile/)（1.8 秒形变 → 每日一句 → 主页）。
 - [直接进入主页](https://xibahbah.github.io/bamboo-mobile/?view=home)。
-- [Morph 首尾帧对照](https://xibahbah.github.io/bamboo-mobile/morph-preview.html)。
+- [Morph 动画预览，可重播和拖动进度](https://xibahbah.github.io/bamboo-mobile/morph-preview.html)。
 - 最新 UX 与后端权限边界：`docs/UX-MOCKUP.md` / `BACKEND-HANDOFF.md`。
 - 首尾帧为新绘制的 SVG：`assets/intro/first-frame.svg`、`last-frame.svg`。运行 `python3 scripts/build_intro_frames.py` 可重新生成。
-- 本轮按要求只交首尾帧，不自动播放，完整 morph 待画面方向确定后衔接。当前 30 天插画/GIF 素材保持独立。
+- 开场现在自动播放 1.8 秒，画面相对首尾帧初稿放大 25%。投币、竹节收小、轮廓变形、竹林生长连续完成。支持 Skip / Escape、减少动态效果和 Settings 重播。
+- `python3 scripts/build_intro_motion.py` 生成 `intro-motion.js`：109 个矢量帧，运行时无几何依赖；作者工具需要 numpy、scipy、Pillow、contourpy。先运行 build_intro_frames.py，再运行 build_intro_motion.py。
+- `morph-preview.html` 可重播或拖动 0–1800ms 进度；`?frame=first` / `?frame=last` 保留静态端点。当前 30 天插画/GIF 素材保持独立。

@@ -31,3 +31,10 @@ These checks cover the local UI demo. They do not validate real payments, backen
 - Fixed legacy sticky sidebar CSS overriding the new drawer's top position.
 - Screenshot artifacts in docs/: morph-endpoints, mobile-community-preview, mobile-personal-profile, mobile-sidebar-preview, mobile-daily-reflection.
 - No backend, real financial settlement, or full morph tested/claimed. This is a local-data prototype with static morph endpoints.
+
+## 2026-11-07 · 1.8s morph release
+
+- `npm test`: 36 passed. New coverage: finish at 1800ms, skip cancellation, replay replacement, Escape, reduced motion, direct-home bypass, all generated SVG frames parse correctly, final frame matches the approved grove.
+- Browser: checked intermediate boundaries at 750, 1050 and 1350ms; verified automatic opening → daily reflection → home. Preview scrubber and replay work.
+- At 320px viewport, document width is 320px and artwork width is 275.2px. No horizontal overflow after enlargement.
+- The opening is vector playback; previous statements that the full morph was pending apply only to the earlier endpoint-review milestone.

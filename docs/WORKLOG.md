@@ -34,3 +34,9 @@ Delivered original minimal green SVG first/last frames and a still-frame opening
 Updated backend handoff with organization authority and feed/profile query separation. Automated local UX regression: 28 passed. Browser QA covers endpoint switching, entry to home, story filtering, profile tabs, sidebar, mobile layout. Existing public repository and GitHub Pages workflow retained.
 
 Keith refined the intro: replaced the shoot with a bamboo coin bank and a suspended coin; retained the approved grove endpoint. Removed taglines and moved the wordmark to the bottom. Added the daily reflection step after the opening, with 30 date-stable entries (26 originals, 4 sourced quotations), a skip path, and a San Diego timezone boundary test. Final local regression: 30/30 passed. Full morph still awaits endpoint feedback.
+
+## 2026-11-07 · Approved 1.8s morph
+
+Implemented the requested automatic animation and enlarged the artwork by 25%. Reused the earlier signed-distance boundary technique, with height normalization and a fixed root for the growing stalk, coin occlusion at the slot, and staggered culm/leaf growth. Production now flows directly from animation to daily reflection. Added replay/scrubbing to the public preview page.
+
+Validation: 36 local tests passed, including the 1800ms deadline, skip/replay cancellation, reduced motion, unchanged money/streak, valid SVG geometry and the approved endpoint. Browser verified 750/1050/1350ms geometry, automatic daily quote and home handoff, and 320px overflow constraints. No files in Aksharam were modified.

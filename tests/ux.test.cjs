@@ -47,7 +47,52 @@ test('new recipes open in your profile and are not mixed into the main feed',t=>
 test('personal composer has no organization-publishing option',t=>{const a=app(t);a.action('compose');assert.deepEqual(Array.from(a.d.querySelector('select').options,o=>o.value),['story','recipe','culture']);const option=a.d.createElement('option');option.value='need';a.d.querySelector('select').append(option);a.fill('#post-form select','need');a.fill('#post-form textarea','Pretending to be an organization');a.submit('post-form');assert.match(a.d.getElementById('toast').textContent,/Choose a story/);assert.equal(a.saved(),null);});
 test('legacy personal stories remain readable but cannot impersonate organizations',t=>{const a=app(t,{version:1,posts:[{id:'old',author:'me',kind:'story',body:'My older story',likes:0},{id:'spoof',author:'team',kind:'need',body:'Spoofed organization',likes:0}]});assert.match(a.text(),/My older story/);assert.doesNotMatch(a.text(),/Spoofed organization/);});
 test('organization profile has organization updates and no personal-content tabs',t=>{const a=app(t);a.action('profile:table');assert.match(a.text(),/Contact organization/);assert.match(a.text(),/A familiar meal/);assert.equal(a.d.querySelector('[data-action="profile-tab:recipe"]'),null);});
-test('opening shows two still frames and enters the homepage without changing growth',t=>{const a=app(t);a.w.eval(fs.readFileSync(path.join(root,'intro-frames.js'),'utf8'));a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));a.w.eval(fs.readFileSync(path.join(root,'intro.js'),'utf8'));assert.equal(a.d.getElementById('launch').open,true);assert.match(a.d.getElementById('launch-art').getAttribute('aria-label'),/First frame/);a.d.querySelector('[data-frame="last"]').click();assert.match(a.d.getElementById('launch-art').getAttribute('aria-label'),/Last frame/);a.d.getElementById('launch-skip').click();assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,true);a.d.getElementById('daily-enter').click();assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.saved(),null);assert.match(a.d.getElementById('streak-trigger').textContent,/14/);});
 
 test('daily reflection is stable per San Diego day and changes at midnight',t=>{const a=app(t);a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));const at=iso=>a.w.BambooDaily.forDate(new Date(iso));assert.equal(at('2026-11-07T09:00:00Z').text,at('2026-11-08T07:59:59Z').text);assert.notEqual(at('2026-11-08T07:59:59Z').text,at('2026-11-08T08:00:00Z').text);assert.equal(at('2026-11-08T08:00:00Z').key,'2026-11-08');});
 test('daily rotation has 30 distinct days and source credits for attributed quotes',t=>{const a=app(t);a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));const quotes=Array.from({length:30},(_,i)=>a.w.BambooDaily.forDate(new Date(Date.UTC(2026,10,7+i,20))));assert.equal(new Set(quotes.map(q=>q.text)).size,30);assert.equal(quotes.filter(q=>q.source).length,4);assert.ok(quotes.every(q=>q.source||q.author==='Bamboo'));a.w.BambooDaily.show();a.d.getElementById('daily-close').click();assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.saved(),null);});
+
+function introApp(t,{reduced=false,home=false}={}){
+ const a=app(t);let now=0,id=0;const raf=new Map(),timers=new Map();
+ if(home)a.w.history.replaceState({},'', '?view=home');
+ Object.defineProperty(a.w.performance,'now',{value:()=>now});
+ a.w.matchMedia=()=>({matches:reduced,addEventListener:()=>{}});
+ a.w.requestAnimationFrame=cb=>{raf.set(++id,cb);return id;};
+ a.w.cancelAnimationFrame=key=>raf.delete(key);
+ a.w.setTimeout=(cb,delay)=>{timers.set(++id,{cb,at:now+delay});return id;};
+ a.w.clearTimeout=key=>timers.delete(key);
+ for(const file of ['intro-frames.js','intro-motion.js','daily.js','intro.js'])a.w.eval(fs.readFileSync(path.join(root,file),'utf8'));
+ const advance=ms=>{now=ms;const callbacks=[...raf.values()];raf.clear();for(const cb of callbacks)cb(now);for(const [key,timer] of [...timers])if(timer.at<=now){timers.delete(key);timer.cb();}};
+ return {...a,advance,raf,timers};
+}
+test('intro morph finishes within two seconds and proceeds once to the daily reflection',t=>{
+ const a=introApp(t),art=a.d.getElementById('launch-art');assert.equal(a.d.getElementById('launch').open,true);
+ const first=art.innerHTML;a.advance(200);assert.notEqual(art.innerHTML,first);assert.ok(art.querySelector('clipPath'));
+ a.advance(750);assert.equal(art.querySelector('#coin'),null);a.advance(1350);assert.ok(art.querySelectorAll('path').length>5);
+ a.advance(1799);assert.equal(a.d.getElementById('launch').open,true);a.advance(1800);
+ assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,true);
+ assert.equal(a.raf.size,0);assert.equal(a.timers.size,0);assert.equal(a.saved(),null);assert.match(a.d.getElementById('streak-trigger').textContent,/14/);
+ a.d.getElementById('daily-enter').click();a.advance(2200);assert.equal(a.d.getElementById('daily').open,false);
+});
+test('skipping stops all pending intro work and does not reopen a dismissed quote',t=>{
+ const a=introApp(t);a.advance(200);a.d.getElementById('launch-skip').click();assert.equal(a.d.getElementById('daily').open,true);
+ a.d.getElementById('daily-close').click();a.advance(2500);assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.raf.size,0);assert.equal(a.timers.size,0);
+});
+test('Escape skips to the daily reflection rather than leaving an orphaned timer',t=>{
+ const a=introApp(t);const event=new a.w.Event('cancel',{cancelable:true});a.d.getElementById('launch').dispatchEvent(event);
+ assert.equal(event.defaultPrevented,true);assert.equal(a.d.getElementById('daily').open,true);assert.equal(a.timers.size,0);
+});
+test('reduced-motion preference bypasses animation and shows the daily reflection',t=>{
+ const a=introApp(t,{reduced:true});assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,true);assert.equal(a.raf.size,0);assert.equal(a.timers.size,0);
+});
+test('replay replaces an active animation without competing completion callbacks',t=>{
+ const a=introApp(t);a.advance(600);a.w.BambooIntro.play();assert.equal(a.timers.size,1);assert.equal(a.raf.size,1);
+ a.advance(1800);assert.equal(a.d.getElementById('launch').open,true);a.advance(2400);assert.equal(a.d.getElementById('daily').open,true);assert.equal(a.timers.size,0);
+});
+test('direct home link bypasses the opening and daily reflection',t=>{
+ const a=introApp(t,{home:true});assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.raf.size,0);
+});
+test('all morph samples are valid vector markup and retain the approved grove endpoint',t=>{
+ const a=introApp(t,{home:true}),motion=a.w.BambooMotion;assert.ok(motion.duration<=2000);
+ for(const frame of motion.frames){assert.doesNotMatch(frame,/NaN|undefined|Infinity|<image/);const svg=new a.w.DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg">'+frame+'</svg>','image/svg+xml');assert.equal(svg.querySelector('parsererror'),null);}
+ assert.equal(motion.frames.at(-1),a.w.BambooFrames.last);
+});

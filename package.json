@@ -5,9 +5,10 @@
   "description": "Independent mobile-first Bamboo community hackathon application",
   "scripts": {
     "dev": "python3 -m http.server 5187 --bind 127.0.0.1",
-    "check": "node --check ui.js",
+    "check": "node --check ui.js && node --check intro.js && node --check daily.js && node --check intro-motion.js",
     "assets": "python3 scripts/build_assets.py && python3 scripts/build_bank.py",
-    "test": "node --test tests/ux.test.cjs"
+    "test": "node --test tests/ux.test.cjs",
+    "intro:build": "python3 scripts/build_intro_frames.py && python3 scripts/build_intro_motion.py"
   },
   "devDependencies": {
     "jsdom": "^26.1.0"
