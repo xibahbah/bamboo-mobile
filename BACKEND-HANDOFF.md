@@ -10,14 +10,15 @@ Public repo：https://github.com/xibahbah/bamboo-mobile
 
 **同学 C：共同资金池。** 负责模拟捐款、账本、streak、私人帮助申请、管理员预留/拨付、善意墙。先交模拟捐款 + growth + finance，再做申请与管理。与 B 共用用户身份，不能再建一套 users。
 
-两人只改自己的服务/数据库文件，不改 `ui.css`、`quiet.css`、`assets/`。约定 45 分钟给可联调接口，60 分钟开始串联，90 分钟冻结新功能。
+两人只改自己的服务/数据库文件，不改 `ui.css`、`quiet.css`、`community.css`、`intro*.js`、`assets/`。约定 45 分钟给可联调接口，60 分钟开始串联，90 分钟冻结新功能。
 
 ## 前端在哪里接
 
 - `ui.js` 当前 `state` / `persist()` 是本地演示实现，需要换成一个请求 API 的 adapter。
 - 页面入口为 `render()`；不要每个页面另建身份状态。
 - 钱必须由响应更新 UI；动效、按钮点击、客户端传入的 streak 都不能代表到账。
-- 五个页面：Home、Map、Giving、Inbox、You。手机优先。
+- 最新导航：左上角侧栏包含 Home、Location、Shared pool、City kindness wall、Messages、Saved posts、Your profile、Settings。取消底部导航。
+- 主页同时显示组织求助/进展和个人 story；食谱、文化内容在个人主页 Stories / Recipes / Culture 分栏。详见 `docs/UX-MOCKUP.md`。
 - 给 Keith 一份 base URL、演示账户进入方式、实际 JSON 响应、迁移和种子数据命令；不要把凭据放 Git。
 
 ## 共用约定
@@ -33,16 +34,18 @@ Public repo：https://github.com/xibahbah/bamboo-mobile
 
 | 接口 | 输入 / 输出与约束 |
 |---|---|
-| GET /api/me | `{id,displayName,bio,avatarUrl}` |
+| GET /api/me | `{id,displayName,bio,avatarUrl,accountType}` |
 | PATCH /api/me | `{displayName,bio}`；名称 trim 后 1–40 字；简介 ≤240 字 |
-| GET /api/posts?kind=&cursor= | 每条含 `{id,author:{id,displayName,avatarUrl},kind,body,createdAt,likeCount,likedByMe,savedByMe}` |
-| POST /api/posts | `{kind:"story"|"recipe"|"culture",body}`；trim 后 1–1200 字；服务端赋作者 |
+| GET /api/posts?feed=all\|organizations\|stories&cursor= | 每条含 `{id,author:{id,displayName,avatarUrl,accountType},kind,title,body,detail,createdAt,likeCount,likedByMe,savedByMe}` |
+| POST /api/posts | `{kind:"story"|"recipe"|"culture",body}`；trim 后 1–1200 字；服务端赋作者；个人仅能发布这三类内容 |
+| POST /api/organization/posts | `{kind:"need"|"update",title,body,detail,caseId?,consentId?}`；仅已核验组织成员，服务端检查组织归属和具体内容的分享同意 |
 | DELETE /api/posts/:id | 仅本人；建议软删除，返回可恢复截止时间 |
 | POST /api/posts/:id/restore | 仅本人，在恢复窗口内撤回删除 |
 | PUT /api/posts/:id/like | `{liked:boolean}`；重复相同请求结果不变 |
 | PUT /api/posts/:id/save | `{saved:boolean}`；本人收藏私密 |
 | GET /api/me/saved | 与帖子列表相同结构 |
-| GET /api/profiles/:id | 仅公开资料与帖子；不含受助状态和捐款记录 |
+| GET /api/profiles/:id | 仅公开资料含 accountType；不含受助状态和捐款记录 |
+| GET /api/profiles/:id/posts?kind=story\|recipe\|culture&cursor= | 个人主页按栏目加载；组织主页只列该组织公开帖子 |
 | GET /api/places | `{items:[{id,name,kind,lat,lng,description,isDemo}]}`；只展示公开服务地点 |
 | GET /api/conversations | 本人可见的会话 |
 | POST /api/message-requests | `{recipientId,body,clientRequestId}`；首次发言创建请求、不能直接视为已接受会话 |
@@ -50,7 +53,7 @@ Public repo：https://github.com/xibahbah/bamboo-mobile
 | GET /api/conversations/:id/messages | 只有参与者可读 |
 | POST /api/conversations/:id/messages | `{body,clientRequestId}`；已接受会话、参与者才可发送；1–500 字 |
 
-表：profiles、posts、post_likes（唯一 post_id + user_id）、post_saves（同样唯一）、places、message_requests、conversations、conversation_members、messages。实时推送可后置，用刷新获取消息。上线前还需屏蔽/举报、限流与内容审核。
+表：profiles（account_type = individual / organization）、organization_memberships（verified / suspended，服务端授权）、posts、post_likes（唯一 post_id + user_id）、post_saves（同样唯一）、places、message_requests、conversations、conversation_members、messages。实时推送可后置，用刷新获取消息。上线前还需屏蔽/举报、限流与内容审核。
 
 ## C 的接口与表
 
@@ -84,7 +87,8 @@ Public repo：https://github.com/xibahbah/bamboo-mobile
 
 1. 同一帖子连续两次点赞请求不会 +2；取消后回到原数。
 2. A 不能编辑 B 的资料/帖子、读取 B 的收藏或私聊。
-3. 发布后的帖子刷新仍存在，纯文本内容不能执行脚本。
+3. 发布后的帖子刷新仍存在，纯文本内容不能执行脚本。个人发布 need / update 必须返回 403；组织成员不能冒充另一组织发布。
+   首页 All = 组织 need / update + 个人 story；Organizations 只显示组织；Stories 只显示个人 story。recipe / culture 通过个人主页单独查询。
 4. 同一捐款请求发两次，余额只加一次。
 5. 当天第二笔成功捐款会增加余额，但不增加 streak。
 6. 失败捐款不加余额，不加 streak。
@@ -102,3 +106,7 @@ P0：会话身份、帖子/点赞/资料、模拟捐款/账本/growth。
 P1：收藏、帮助申请、管理员分配、上墙同意。
 
 P2：真实地图服务、消息请求后端、推送、原生 app/Widget。来不及就保留明确的本地演示，不假装已经连通。
+
+## 每日一句（当前前端模拟）
+
+`daily.js` 提供 30 条内容，按 San Diego 的本地日期稳定选句。正式接入可提供 `GET /api/daily-reflection` → `{date,text,author,sourceUrl,isOriginal}`，由服务端按城市时区选择。句子加载不影响捐款、权限或 growth，允许跳过。

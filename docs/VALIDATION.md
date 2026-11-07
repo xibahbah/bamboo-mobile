@@ -22,3 +22,12 @@
 - Screenshot: `mobile-ui-preview.jpg`.
 
 These checks cover the local UI demo. They do not validate real payments, backend authorization, real map locations, actual message delivery or native mobile packaging.
+
+## 2026-11-07 · Mixed feed / intro endpoints / daily reflection
+
+- `node --check ui.js`, `node --check intro.js`, `node --check daily.js` passed.
+- `npm test`: 30 passed; includes mixed feed filters, personal Stories / Recipes / Culture, composer type constraints, backward-compatible personal posts, native drawer state, intro → daily → home, stable LA date selection and 30 distinct daily entries.
+- Browser: 390 × 844 layout and 320 × 700 narrow layout (document width 320), no horizontal overflow. Verified profile tabs, drawer and Escape, composer, still-frame switching, daily quote dismissal and homepage entry.
+- Fixed legacy sticky sidebar CSS overriding the new drawer's top position.
+- Screenshot artifacts in docs/: morph-endpoints, mobile-community-preview, mobile-personal-profile, mobile-sidebar-preview, mobile-daily-reflection.
+- No backend, real financial settlement, or full morph tested/claimed. This is a local-data prototype with static morph endpoints.

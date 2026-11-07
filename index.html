@@ -1,11 +1,28 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F8F9F3"><title>Bamboo — A little good, every day</title><link rel="stylesheet" href="ui.css"><link rel="stylesheet" href="assets/bamboo-motion.css"><link rel="stylesheet" href="quiet.css"></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f1ec"><meta name="description" content="A little good, every day. Small acts of kindness, one shared San Diego community.">
+<title>Bamboo — A little good, every day</title>
+<link rel="stylesheet" href="ui.css"><link rel="stylesheet" href="assets/bamboo-motion.css"><link rel="stylesheet" href="quiet.css"><link rel="stylesheet" href="community.css">
+</head>
 <body>
-<header class="topbar"><div class="top-inner"><a class="brand" href="#home" aria-label="Bamboo home"><span class="brand-mark" aria-hidden="true">b.</span><span>bamboo<span class="brand-caption">a little good, every day</span></span></a><div class="top-actions"><span class="location" id="city-label"></span><button class="streak-pill" id="streak-trigger" data-action="growth" aria-label="View your giving streak"></button><button class="avatar mine" data-action="you" aria-label="Your profile">A</button></div></div></header>
-<div class="page"><main id="main"></main><aside id="sidebar" aria-label="Your community"></aside></div>
-<nav class="bottom-nav" id="nav" aria-label="Main navigation"></nav>
+<dialog id="launch" class="launch" aria-labelledby="launch-title">
+  <h1 id="launch-title" class="sr-only">Bamboo opening preview</h1>
+  <div class="launch-scene"><svg id="launch-art" viewBox="0 0 240 260" role="img" aria-label="A bamboo bank with a coin above its slot"></svg></div>
+  <span class="launch-wordmark" aria-hidden="true">bamboo</span>
+  <div class="launch-controls"><div class="frame-switch" aria-label="Preview morph endpoints"><button type="button" data-frame="first" aria-pressed="true">First frame</button><button type="button" data-frame="last" aria-pressed="false">Last frame</button></div><button type="button" class="launch-skip" id="launch-skip">Continue <span aria-hidden="true">→</span></button></div>
+</dialog>
+<header class="topbar"><div class="top-inner">
+  <button type="button" class="header-control menu-trigger" id="menu-trigger" data-action="menu" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h11"/></svg></button>
+  <a class="brand" href="#home" aria-label="Bamboo home">bamboo<span class="brand-dot">.</span></a>
+  <button type="button" class="header-control streak-pill" id="streak-trigger" data-action="growth" aria-label="View your giving streak"></button>
+</div></header>
+<div class="page"><main id="main" tabindex="-1"></main></div>
+<dialog id="sidebar" class="drawer" aria-labelledby="drawer-title"><div id="drawer-content"></div></dialog>
+<dialog id="daily" class="daily-dialog" aria-labelledby="daily-title"><button type="button" class="header-control daily-close" id="daily-close" aria-label="Close daily reflection">×</button><div class="daily-reflection"><span class="daily-eyebrow" id="daily-title">A MOMENT FOR TODAY</span><time id="daily-date"></time><blockquote id="daily-words"></blockquote><p id="daily-credit"></p></div><button type="button" class="button daily-enter" id="daily-enter">Enter community <span aria-hidden="true">→</span></button><span class="daily-wordmark" aria-hidden="true">bamboo</span></dialog>
 <div class="toast" id="toast" role="status" hidden></div>
 <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
-<script src="ui.js"></script>
+<noscript><p>Please enable JavaScript to explore the Bamboo prototype.</p></noscript>
+<script src="ui.js"></script><script src="intro-frames.js"></script><script src="daily.js"></script><script src="intro.js"></script>
 </body></html>

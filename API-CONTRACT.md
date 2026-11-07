@@ -1,13 +1,17 @@
-# 最小接口约定 v1
+# 最小接口约定 v2
 
 这是给两名后端同学的实现合同，不是已部署的 API。统一 JSON、同源 /api、金额 USD cents、日期 YYYY-MM-DD，服务器时区 America/Los_Angeles。演示模式必须标注 mode: "demo"。
 
+最新 UX：混合主页 + 左侧导航 + 个人 Stories / Recipes / Culture。完整约束以 `BACKEND-HANDOFF.md` 为准。
+
 ## B：社区
 
-- GET /api/me → {id, displayName, bio, avatarUrl}
+- GET /api/me → {id, displayName, bio, avatarUrl,accountType}
 - PATCH /api/me {displayName,bio} → 更新后的本人资料
-- GET /api/posts?cursor=... → {items:[{id,author:{id,displayName,avatarUrl},kind,body,createdAt,likeCount,likedByMe}],nextCursor}
-- POST /api/posts {kind:"story"|"recipe"|"culture",body} → 新帖子（服务器赋作者）
+- GET /api/posts?feed=all|organizations|stories&cursor=... → {items:[{id,author:{id,displayName,avatarUrl,accountType},kind,body,createdAt,likeCount,likedByMe}],nextCursor}
+- POST /api/posts {kind:"story"|"recipe"|"culture",body} → 新个人帖子（服务器赋作者；不得发布 need / update）
+- POST /api/organization/posts {kind:"need"|"update",title,body,detail,caseId?,consentId?} → 仅核验组织成员可发布，后端校验组织归属与公开同意
+- GET /api/profiles/:id/posts?kind=story|recipe|culture&cursor=... → 个人内容分栏；首页不混入 recipe / culture
 - PUT /api/posts/:id/like {liked:true|false} → {likeCount,likedByMe}；使用设置状态而非盲目 toggle，方便重试。
 - GET /api/profiles/:id → {id,displayName,bio,posts}；不泄露私人申请和捐款金额。
 - GET /api/places → {items:[{id,name,kind,lat,lng,description,isDemo:true}]}

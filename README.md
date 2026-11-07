@@ -2,9 +2,9 @@
 
 这是独立于 Aksharam 的本地 Git repo。手机 UI 入口是 `index.html`，运行 `npm run dev` 后访问 http://127.0.0.1:5187/ 。无需安装前端依赖。
 
-代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Public GitHub repo：https://github.com/xibahbah/bamboo-mobile 。未来公开版本使用新的仓库与独立历史；详见 `PROJECT.md`。
+代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Public GitHub repo：https://github.com/xibahbah/bamboo-mobile 。目前此仓库已公开，供三人协作。
 
-当前实现是可交互的手机优先网页 UI：五个底部入口、帖子与点赞、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
+当前实现是可交互的手机优先网页 UI：开场首尾帧预览、左上侧栏、组织与个人混合信息流、个人 Stories / Recipes / Culture、点赞收藏、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
 
 ## 成长素材包
 
@@ -51,4 +51,13 @@
 
 ## 简洁 UI 与测试
 
-默认 Warm stone 背景，You → Settings 可换 Morning mist / Soft clay。Hover、植物与转场动画暂时关闭。`npm ci` 后执行 `npm test` 跑 23 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
+默认极简 Bamboo green 背景，You → Settings 可换 Morning mist / Soft clay。Hover、植物与转场动画暂时关闭。`npm ci` 后执行 `npm test` 跑 30 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
+
+## 本轮可交互模拟
+
+- 主页面：[在线 App](https://xibahbah.github.io/bamboo-mobile/)（开场静态帧 → 每日一句 → 主页）。
+- [直接进入主页](https://xibahbah.github.io/bamboo-mobile/?view=home)。
+- [Morph 首尾帧对照](https://xibahbah.github.io/bamboo-mobile/morph-preview.html)。
+- 最新 UX 与后端权限边界：`docs/UX-MOCKUP.md` / `BACKEND-HANDOFF.md`。
+- 首尾帧为新绘制的 SVG：`assets/intro/first-frame.svg`、`last-frame.svg`。运行 `python3 scripts/build_intro_frames.py` 可重新生成。
+- 本轮按要求只交首尾帧，不自动播放，完整 morph 待画面方向确定后衔接。当前 30 天插画/GIF 素材保持独立。
