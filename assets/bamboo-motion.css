@@ -1,0 +1,12 @@
+/* Drop-in motion. Use the matching daily PNG; let the server decide the day. */
+.bamboo-growth { width: min(100%, 320px); height: auto; transform-origin: 50% 89%; }
+.bamboo-growth.is-idle { animation: bamboo-sway 3.6s ease-in-out infinite; }
+.bamboo-bank { width: min(100%, 200px); transform-origin: 50% 85%; }
+.bamboo-bank.is-idle { animation: bamboo-breathe 4s ease-in-out infinite; }
+.bamboo-bank.is-success { animation: bamboo-thanks 750ms ease-in-out 1; }
+@keyframes bamboo-sway { 0%,100% { transform: rotate(-1deg); } 50% { transform: rotate(1deg); } }
+@keyframes bamboo-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.018); } }
+@keyframes bamboo-thanks { 0%,100% { transform: scale(1); } 35% { transform: translateY(-5px) scale(.98,1.04); } 65% { transform: scale(1.03,.98); } }
+@media (prefers-reduced-motion: reduce) {
+  .bamboo-growth.is-idle, .bamboo-bank.is-idle, .bamboo-bank.is-success { animation: none; }
+}

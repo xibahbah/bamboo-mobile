@@ -1,0 +1,98 @@
+<div id="bamboo-ux-v1">
+  <style>
+    #bamboo-ux-v1{--paper:light-dark(#fff,#202020);--ink:light-dark(#242424,#eee);--soft:light-dark(#f3f3f1,#303030);--line:light-dark(#ccc,#555);--sub:light-dark(#595959,#c1c1c1);font:15px/1.6 system-ui,sans-serif;color:var(--ink)}
+    #bamboo-ux-v1 *{box-sizing:border-box}#bamboo-ux-v1 h2,#bamboo-ux-v1 h3,#bamboo-ux-v1 p{margin:0}#bamboo-ux-v1 h2{font-size:21px;font-weight:600}#bamboo-ux-v1 h3{font-size:17px;font-weight:600}
+    #bamboo-ux-v1 button,#bamboo-ux-v1 input,#bamboo-ux-v1 select,#bamboo-ux-v1 textarea{font:inherit;color:inherit}#bamboo-ux-v1 button{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 12px;min-height:44px;cursor:pointer}#bamboo-ux-v1 button:disabled{opacity:.55;cursor:default}#bamboo-ux-v1 button[aria-pressed=true],#bamboo-ux-v1 .primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}#bamboo-ux-v1 button:focus-visible,#bamboo-ux-v1 input:focus-visible,#bamboo-ux-v1 textarea:focus-visible,#bamboo-ux-v1 select:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+    #bamboo-ux-v1 .head{padding-right:96px;margin-bottom:16px}#bamboo-ux-v1 .muted{color:var(--sub);font-size:13px}#bamboo-ux-v1 .roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}#bamboo-ux-v1 .layout{display:grid;grid-template-columns:minmax(155px,1fr) minmax(0,390px);gap:24px;align-items:start}#bamboo-ux-v1 .steps{display:flex;flex-direction:column;gap:8px}#bamboo-ux-v1 .steps button{text-align:left}#bamboo-ux-v1 .steps span{display:block;font-size:12px}#bamboo-ux-v1 .phone{border:1px solid var(--line);border-radius:16px;background:var(--paper);overflow:hidden}#bamboo-ux-v1 .apphead{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}#bamboo-ux-v1 .screen{padding:22px 18px;min-height:400px;display:flex;flex-direction:column;gap:16px}#bamboo-ux-v1 .screen>*{max-width:100%}#bamboo-ux-v1 .bottom{display:flex;gap:4px;border-top:1px solid var(--line);padding:8px;flex-wrap:wrap}#bamboo-ux-v1 .bottom button{flex:1;padding:7px;font-size:13px}#bamboo-ux-v1 .stack{display:flex;flex-direction:column;gap:10px}#bamboo-ux-v1 .row{display:flex;gap:8px;flex-wrap:wrap}#bamboo-ux-v1 .panel{border:1px solid var(--line);padding:14px;border-radius:6px;display:grid;gap:8px}#bamboo-ux-v1 .plant{background:var(--soft);padding:22px 12px;text-align:center;display:grid;gap:8px}#bamboo-ux-v1 .plant-icon{font-size:42px;line-height:1.2}#bamboo-ux-v1 label{display:grid;gap:5px}#bamboo-ux-v1 input:not([type=checkbox]),#bamboo-ux-v1 textarea,#bamboo-ux-v1 select{width:100%;padding:10px;border:1px solid var(--line);border-radius:5px;background:var(--paper)}#bamboo-ux-v1 textarea{min-height:85px;resize:vertical}#bamboo-ux-v1 .check{display:flex;gap:9px;align-items:flex-start}#bamboo-ux-v1 input[type=checkbox]{width:20px;height:20px;flex:none}#bamboo-ux-v1 .wall{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}#bamboo-ux-v1 .person{display:grid;justify-items:center;gap:4px;font-size:12px}#bamboo-ux-v1 .avatar{width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:19px}#bamboo-ux-v1 .numbers{display:grid;grid-template-columns:1fr auto;gap:8px}#bamboo-ux-v1 .numbers strong{font-weight:500;font-variant-numeric:tabular-nums}#bamboo-ux-v1 .error{font-weight:600}#bamboo-ux-v1 .foot{margin-top:15px}#bamboo-ux-v1 [hidden]{display:none!important}
+    @media(max-width:540px){#bamboo-ux-v1 .layout{grid-template-columns:1fr;gap:14px}#bamboo-ux-v1 .steps{flex-direction:row;flex-wrap:wrap}#bamboo-ux-v1 .steps button{font-size:12px;padding:7px}#bamboo-ux-v1 .steps span{display:none}#bamboo-ux-v1 .screen{min-height:340px}#bamboo-ux-v1 .roles button{flex:1;padding:8px}#bamboo-ux-v1 .head{padding-right:85px}}
+  </style>
+  <div class="head"><h2>SD 竹筒 · UX 流程草图</h2><p class="muted">v0.1 · 演示数据，不扣款、不提交申请</p></div>
+  <div class="roles" aria-label="评审视角切换">
+    <button type="button" data-role="donor" aria-pressed="true">Alex · 捐助者</button>
+    <button type="button" data-role="recipient" aria-pressed="false">Maria · 受助者</button>
+    <button type="button" data-role="admin" aria-pressed="false">管理员</button>
+  </div>
+  <div class="layout">
+    <div class="stack"><p class="muted" id="bamboo-goal"></p><nav class="steps" id="bamboo-steps" aria-label="流程步骤"></nav></div>
+    <section class="phone" aria-label="手机流程预览">
+      <header class="apphead"><strong>SD 竹筒</strong><span class="muted" id="bamboo-role-label">San Diego</span></header>
+      <main class="screen" id="bamboo-screen"></main>
+      <nav class="bottom" id="bamboo-bottom" aria-label="应用导航"></nav>
+    </section>
+  </div>
+  <p class="muted foot" id="bamboo-feedback" aria-live="polite"></p>
+  <script>
+  (()=>{
+    const root=document.getElementById('bamboo-ux-v1');
+    const screen=root.querySelector('#bamboo-screen');
+    const steps=root.querySelector('#bamboo-steps');
+    const bottom=root.querySelector('#bamboo-bottom');
+    const feedback=root.querySelector('#bamboo-feedback');
+    const flows={
+      donor:[['welcome','先看懂','钱进共同池，管理员安排帮助'],['pot','放一点钱','金额自己决定'],['confirm','确认捐款','知道钱会去哪里'],['receipt','看见成长','每天最多记录一天'],['privacy','选择上墙','15 天邀请，可拒绝'],['wall','城市善意墙','每个人一样大小']],
+      recipient:[['help','申请帮助','先私下说明需要'],['status','查看进展','补充资料、等待安排'],['city','看见帮助','公开内容先经本人同意'],['wall','看看支持者','认识社区，不配对捐助者']],
+      admin:[['queue','核实需要','查看私人申请'],['review','安排资金','确认共同池余额'],['delivery','确认送达','批准与完成分开'],['publish','发布近况','检查公开授权'],['ledger','核对账本','到账、预留、支出分开']]
+    };
+    const goals={donor:'我想贡献一点，也想知道有没有帮上忙。',recipient:'我需要帮助，但不想被迫公开自己的困难。',admin:'我要核实需要，把共同资金安排到合适的地方。'};
+    const labels={welcome:'先了解',pot:'我的竹筒',confirm:'确认捐款',receipt:'今天的成长',privacy:'上墙邀请',wall:'城市善意墙',city:'城市近况',ledger:'共同账本',help:'申请帮助',status:'我的申请',queue:'待处理申请',review:'安排帮助',delivery:'确认送达',publish:'发布近况'};
+    let role='donor',page='welcome',amount=10,donated=false,wallOpt=false,wallName='Alex',wallAvatar='A',req='pending',approved=false,delivered=false,published=false,consent=false,error='';
+    const money=n=>'$'+(n/100).toFixed(2);
+    const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const b=(label,action,primary=false,disabled=false)=>`<button type="button" data-action="${action}" class="${primary?'primary':''}" ${disabled?'disabled':''}>${label}</button>`;
+    const go=(label,id,primary=false)=>b(label,'go:'+id,primary);
+    const total=()=>20000+(donated?amount:0);
+    function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{role,page,wallThresholdDays:15},privateContent:{role,page}}).catch(()=>{});}
+    function render(){
+      root.querySelectorAll('[data-role]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.role===role)));
+      root.querySelector('#bamboo-goal').textContent=goals[role];
+      root.querySelector('#bamboo-role-label').textContent=role==='admin'?'管理端 · 演示':'San Diego · 演示';
+      steps.innerHTML=flows[role].map(([id,title,sub],i)=>`<button type="button" data-page="${id}" aria-pressed="${page===id}">${i+1}. ${title}<span>${sub}</span></button>`).join('');
+      bottom.innerHTML=(role==='admin'?[['queue','申请'],['ledger','账本'],['city','近况']]:[['pot','竹筒'],['city','近况'],['wall','善意墙'],[role==='recipient'?'status':'ledger',role==='recipient'?'我的申请':'账本']]).map(([id,title])=>`<button type="button" data-page="${id}" aria-pressed="${page===id}">${title}</button>`).join('');
+      let body='';
+      if(page==='welcome')body=`<h2>一点点，也能参与。</h2><p>大家的钱汇入 SD 共同竹筒，由管理员核实需要、安排帮助。</p><div class="panel"><p>金额不决定成长速度。</p><p>头像不会自动公开。</p><p>没有每日催捐。</p></div>${go('放一点心意','pot',true)}${go('先看看城市近况','city')}`;
+      if(page==='pot')body=`<h2>我的竹筒</h2><div class="plant"><span class="plant-icon" aria-hidden="true">${donated?'🌳':'🌿'}</span><h3>${donated?'连续参与 15 天':'连续参与 14 天'}</h3><p class="muted">${donated?'今天已记录，更多捐款不会加速成长。':'演示从第 14 天开始。今天还没参与。'}</p></div><label>这次想捐多少（USD）<input id="bamboo-amount" type="number" min="0.01" step="0.01" value="${(amount/100).toFixed(2)}" ${donated?'disabled':''}></label><p class="muted">汇入城市共同资金池。任何金额成长相同。</p><p role="alert" class="error">${escape(error)}</p>${b(donated?'今天已完成':'继续确认','amount',true,donated)}${donated?go('查看上墙选择','privacy'):go('今天先看看','city')}`;
+      if(page==='confirm')body=`<h2>确认这次捐款</h2><div class="numbers"><span>金额</span><strong>${money(amount)}</strong><span>去向</span><strong>SD 共同资金池</strong><span>方式</span><strong>单次 · 测试支付</strong></div><p>管理员按核实后的需要分配。不会指定给某一位受助者。</p><p class="muted">模拟入池 ${money(amount)}；无真实扣款。零钱结算及手续费规则待确定。</p>${b('模拟捐款成功','pay',true,donated)}${b('模拟支付失败','payfail',false,donated)}${go('返回修改','pot')}<p role="alert">${escape(error)}</p>`;
+      if(page==='receipt')body=donated?`<h2>这份心意已加入共同竹筒。</h2><div class="plant"><span class="plant-icon" aria-hidden="true">🌳</span><h3>你的小树长大了</h3><p>连续参与 15 天 · 模拟到账 ${money(amount)}</p></div><p>你可以选择，把头像留在城市善意墙上。</p>${go('看看上墙邀请','privacy',true)}${go('保持私密，看看近况','city')}`:`<h2>还没有完成捐款</h2><p>支付确认后才更新成长和账本。</p>${go('回到竹筒','pot',true)}`;
+      if(page==='privacy')body=donated?`<h2>想让城市看见你吗？</h2><p>头像与其他人一样大，不显示捐款金额。你也可以一直保持私密。</p><label>展示名称<input id="bamboo-name" maxlength="20" value="${escape(wallName)}"></label><label>头像<select id="bamboo-avatar"><option value="A" ${wallAvatar==='A'?'selected':''}>字母头像 A（照片占位）</option><option value="竹" ${wallAvatar==='竹'?'selected':''}>插画头像：竹</option></select></label><label class="check"><input id="bamboo-consent" type="checkbox" ${wallOpt?'checked':''}><span>我同意将头像和名称展示给所有查看 SD 善意墙的人。以后可移除。</span></label>${b('保存展示选择','wall-save',true)}${b('暂不上墙','wall-private')}`:`<h2>上墙邀请尚未解锁</h2><p>草案：连续参与 15 天后收到邀请。未上墙的每一份贡献同样重要。</p>${go('回到竹筒','pot',true)}`;
+      if(page==='wall'){
+        const people=[['M','Mia'],['J','Jay'],['S','Sam'],['L','Lee'],['R','Rae'],['T','Tao'],['N','Noa'],['K','Kai']];if(wallOpt)people.push([wallAvatar,wallName]);
+        body=`<h2>一座城市，共同关怀。</h2><p>这些人选择公开参与。还有选择匿名的伙伴。</p><div class="wall">${people.map(([a,n])=>`<div class="person"><span class="avatar" aria-hidden="true">${escape(a)}</span><span>${escape(n)}</span></div>`).join('')}</div><p class="muted">全部为演示头像。墙上没有个人捐款金额，也不表示某个人资助了某位受助者。</p>${wallOpt?b('移除我的头像','remove'):role==='donor'?go('我的展示选择','privacy'):''}${go('看看城市的帮助进展','city',true)}`;
+      }
+      if(page==='city')body=`<h2>城市近况</h2><article class="panel"><span class="muted">示例合作机构 · 演示案例</span><h3>${published?'一份食物支持，已经送达。':'一份食物支持，正在准备。'}</h3><p>${published?'一个家庭已收到 $50 食品支持。公开内容经本人同意。':'我们正在核实本地的食物支持需要。会在获得公开同意后更新进展。'}</p><span>状态：${published?'已完成并发布':'处理中'}</span>${go('查看共同账本','ledger')}</article>${go('看看共同参与的人','wall')}${role==='recipient'?go('查看我的申请','status',true):go('我也想放一点心意','pot',true)}<p class="muted">没有个人筹款按钮，所有捐款进入共同池。</p>`;
+      if(page==='ledger')body=`<h2>SD 共同账本</h2><p class="muted">演示账本 · 此处费用暂按 $0 模拟</p><div class="numbers"><span>累计到账</span><strong>${money(total())}</strong><span>费用</span><strong>$0.00</strong><span>已拨付</span><strong>${delivered?'$50.00':'$0.00'}</strong><span>已批准、待拨付</span><strong>${approved&&!delivered?'$50.00':'$0.00'}</strong><span>可安排余额</span><strong>${money(total()-(approved?5000:0))}</strong></div><div class="panel"><p>食物支持 · H-001</p><p>${delivered?'已拨付 $50.00':approved?'已预留 $50.00':'尚未分配资金'}</p><span class="muted">公共账本不展示受助者联系方式。</span></div>${go('查看帮助进展','city',true)}`;
+      if(page==='help')body=`<h2>你现在需要什么帮助？</h2><p>先私下告诉管理员。不需要先捐款，也不需要公开发帖。</p><label>需要类型<select id="bamboo-need"><option>食物支持</option></select></label><label>补充说明（可选）<textarea id="bamboo-note" placeholder="例如：这个星期需要食品支持。"></textarea></label><p class="muted">示例账户：Maria。真实联系方式在正式流程中私下确认。此原型不会保存输入内容。</p>${b('提交演示申请','apply',true)}`;
+      if(page==='status')body=`<h2>我的申请 · H-001</h2><div class="panel"><h3>${delivered?'帮助已送达':approved?'已安排 $50 食品支持':req==='submitted'?'申请已收到':'待核实（示例申请）'}</h3><p>${delivered?'你可以反馈收到的情况。':approved?'管理员将与你确认领取方式。':'管理员核实后会在这里更新。尚未承诺金额或完成日期。'}</p></div><p>申请详情仅你与获授权的工作人员可见。</p><label class="check"><input id="bamboo-story-consent" type="checkbox" ${consent?'checked':''}><span>愿意公开这句匿名近况：“一个家庭已收到 $50 食品支持。”不包含姓名、照片或地址。</span></label>${b('保存公开偏好','consent-save')}${go('看看城市里的支持者','wall',true)}<p class="muted">公开与否不影响获得帮助。</p>`;
+      if(page==='queue')body=`<h2>待处理申请</h2><div class="panel"><span>H-001 · Maria · 私人资料</span><h3>食物支持</h3><p>状态：${delivered?'已送达':approved?'已批准':'待核实'}</p><span class="muted">演示案例：申请 $50 食品支持。</span></div>${go('查看并核实','review',true)}<p class="muted">管理端需独立权限；这里的角色切换仅用于评审。</p>`;
+      if(page==='review')body=`<h2>为 H-001 安排帮助</h2><div class="numbers"><span>可安排余额</span><strong>${money(total()-(approved?5000:0))}</strong><span>本次拟安排</span><strong>$50.00</strong></div><label class="check"><input id="bamboo-verified" type="checkbox" ${approved?'checked disabled':''}><span>已核实需要、金额及执行方式（模拟）</span></label><p>资金来自共同池，不绑定个人捐助者。</p><p role="alert">${escape(error)}</p>${approved?go('查看送达步骤','delivery',true):b('批准并预留 $50','approve',true)}${go('返回申请列表','queue')}`;
+      if(page==='delivery')body=`<h2>确认帮助已送达</h2><p>${approved?'已预留 $50 食品支持。':'此申请尚未批准，不能拨付。'}</p><p class="muted">正式版需记录凭据、执行人员和时间。</p>${b(delivered?'已记录送达':'模拟已送达并记录拨付','deliver',true,!approved||delivered)}${go('检查公开近况','publish')}${go('返回核实','review')}`;
+      if(page==='publish')body=`<h2>近况发布检查</h2><div class="panel"><p>□ 送达记录：${delivered?'已有':'尚未完成'}</p><p>□ 公开授权：${consent?'本人已同意匿名文字':'本人尚未同意'}</p><p>拟公开：一个家庭已收到 $50 食品支持。</p></div>${b(published?'已发布':'发布匿名近况','publish',true,!delivered||!consent||published)}${go('查看城市近况','city')}<p class="muted">未获授权时，个人故事不公开；账本仍显示不含身份的支出记录。</p>`;
+      screen.innerHTML=body;
+    }
+    function navigate(id){page=id;error='';feedback.textContent='';render();save();}
+    root.addEventListener('click',e=>{
+      const button=e.target.closest('button');if(!button||button.disabled)return;
+      if(button.dataset.role){role=button.dataset.role;navigate(flows[role][0][0]);return;}
+      if(button.dataset.page){navigate(button.dataset.page);return;}
+      const a=button.dataset.action;if(!a)return;
+      if(a.startsWith('go:')){navigate(a.slice(3));return;}
+      if(a==='amount'){
+        const raw=root.querySelector('#bamboo-amount').value,n=Number(raw);
+        if(!raw||!Number.isFinite(n)||n<=0||n>100000||Math.abs(n*100-Math.round(n*100))>0.00001){error='请输入大于 $0、最多两位小数的金额。';render();return;}
+        amount=Math.round(n*100);navigate('confirm');return;
+      }
+      if(a==='pay'){donated=true;navigate('receipt');feedback.textContent='模拟支付成功：共同池、个人记录同步更新。';return;}
+      if(a==='payfail'){error='支付未完成，没有扣款，成长和账本未改变。可以重试或返回。';render();return;}
+      if(a==='wall-save'){wallName=root.querySelector('#bamboo-name').value.trim()||'参与者';wallAvatar=root.querySelector('#bamboo-avatar').value;wallOpt=root.querySelector('#bamboo-consent').checked;navigate('wall');return;}
+      if(a==='wall-private'||a==='remove'){wallOpt=false;navigate('wall');feedback.textContent='你的头像保持私密；参与记录保留。';return;}
+      if(a==='apply'){req='submitted';navigate('status');feedback.textContent='演示申请已提交。输入内容未保存或发送。';return;}
+      if(a==='consent-save'){consent=root.querySelector('#bamboo-story-consent').checked;if(!consent)published=false;render();feedback.textContent=consent?'已同意所显示的匿名文字。':'已保持私密，或撤回公开；不影响帮助。';return;}
+      if(a==='approve'){if(!root.querySelector('#bamboo-verified').checked){error='先确认需要与执行方式已核实。';render();return;}approved=true;navigate('delivery');return;}
+      if(a==='deliver'&&approved){delivered=true;navigate('publish');return;}
+      if(a==='publish'&&delivered&&consent){published=true;navigate('city');return;}
+    });
+    function restore(s){const v=s?.privateContent;if(v&&flows[v.role]&&Object.hasOwn(labels,v.page)){role=v.role;page=v.page;}render();}
+    restore(window.openai?.widgetState);
+    window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));
+  })();
+  </script>
+</div>

@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 320,
+    "height": 320,
+    "baselineY": 284
+  },
+  "source": "built-in imagegen atlas; normalized crops",
+  "days": [
+    {
+      "day": 1,
+      "src": "days/day-01.png"
+    },
+    {
+      "day": 2,
+      "src": "days/day-02.png"
+    },
+    {
+      "day": 3,
+      "src": "days/day-03.png"
+    },
+    {
+      "day": 4,
+      "src": "days/day-04.png"
+    },
+    {
+      "day": 5,
+      "src": "days/day-05.png"
+    },
+    {
+      "day": 6,
+      "src": "days/day-06.png"
+    },
+    {
+      "day": 7,
+      "src": "days/day-07.png"
+    },
+    {
+      "day": 8,
+      "src": "days/day-08.png"
+    },
+    {
+      "day": 9,
+      "src": "days/day-09.png"
+    },
+    {
+      "day": 10,
+      "src": "days/day-10.png"
+    },
+    {
+      "day": 11,
+      "src": "days/day-11.png"
+    },
+    {
+      "day": 12,
+      "src": "days/day-12.png"
+    },
+    {
+      "day": 13,
+      "src": "days/day-13.png"
+    },
+    {
+      "day": 14,
+      "src": "days/day-14.png"
+    },
+    {
+      "day": 15,
+      "src": "days/day-15.png"
+    },
+    {
+      "day": 16,
+      "src": "days/day-16.png"
+    },
+    {
+      "day": 17,
+      "src": "days/day-17.png"
+    },
+    {
+      "day": 18,
+      "src": "days/day-18.png"
+    },
+    {
+      "day": 19,
+      "src": "days/day-19.png"
+    },
+    {
+      "day": 20,
+      "src": "days/day-20.png"
+    },
+    {
+      "day": 21,
+      "src": "days/day-21.png"
+    },
+    {
+      "day": 22,
+      "src": "days/day-22.png"
+    },
+    {
+      "day": 23,
+      "src": "days/day-23.png"
+    },
+    {
+      "day": 24,
+      "src": "days/day-24.png"
+    },
+    {
+      "day": 25,
+      "src": "days/day-25.png"
+    },
+    {
+      "day": 26,
+      "src": "days/day-26.png"
+    },
+    {
+      "day": 27,
+      "src": "days/day-27.png"
+    },
+    {
+      "day": 28,
+      "src": "days/day-28.png"
+    },
+    {
+      "day": 29,
+      "src": "days/day-29.png"
+    },
+    {
+      "day": 30,
+      "src": "days/day-30.png"
+    }
+  ],
+  "growth": {
+    "frameCount": 175,
+    "frames": "growth-frames/frame-NNN.png",
+    "gif": "bamboo-growth.gif",
+    "transition": "crossfade"
+  },
+  "idle": {
+    "frameCount": 36,
+    "durationMs": 2880,
+    "gif": "bamboo-grove-idle.gif"
+  },
+  "widget": "static artwork only; no native WidgetKit integration",
+  "bank": {
+    "image": "bamboo-bank.png",
+    "gif": "bamboo-bank-thanks.gif",
+    "frameCount": 36,
+    "encodedGifFrames": 25
+  },
+  "extraGroves": [
+    "groves-2.png",
+    "groves-3.png"
+  ]
+}
