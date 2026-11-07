@@ -6,7 +6,7 @@ This repository is exclusively for the Bamboo humanities hackathon mobile applic
 
 `npm run dev` (or `python3 -m http.server 5187 --bind 127.0.0.1`). Open http://127.0.0.1:5187/ . No dependency installation is required for the UI. Use a mobile viewport first.
 
-`npm run check` validates JavaScript syntax. Asset regeneration needs Python + Pillow.
+`npm run check` validates JavaScript syntax. `npm ci && npm test` runs the jsdom UX regression suite. Asset regeneration needs Python + Pillow.
 
 ## Structure
 
@@ -19,7 +19,7 @@ This repository is exclusively for the Bamboo humanities hackathon mobile applic
 
 ## Repository boundaries
 
-Local Git repository with its own history. No GitHub remote has been created or configured. A local repository does not have a GitHub public/private visibility setting; nothing has been uploaded. `package.json` is marked private to prevent accidental npm publishing.
+Independent Git history with private GitHub remote: https://github.com/xibahbah/bamboo-mobile . The working source, assets, planning, and tests are kept together here. `package.json` is marked private to prevent accidental npm publishing.
 
 Keep working commits and planning here. When the team explicitly requests a public release, export the agreed source/assets into a NEW repository, without copying this `.git` history. Review which documents to include at that time. Do not rewrite or erase this working history automatically.
 

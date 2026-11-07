@@ -11,3 +11,12 @@
 - Created a separate local Git repository for Bamboo. No GitHub remote and no public upload. Aksharam remains a separate project.
 
 This file records project decisions, not raw private conversation transcripts or credentials.
+
+## Quiet UI and private collaboration repository
+
+- Created private GitHub repository `xibahbah/bamboo-mobile`; no collaborators invited automatically.
+- Simplified the feed, reduced growth to a compact row, removed competing color blocks and paused motion.
+- Added three muted background choices in Settings.
+- Added saved-post access, own-post removal/undo, draft preservation and payment failure recovery.
+- Added 23 automated UX checks plus mobile browser inspection.
+- Created BACKEND-HANDOFF.md with ownership, routes, data constraints and acceptance tests for the two backend teammates.

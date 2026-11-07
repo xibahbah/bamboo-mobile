@@ -2,7 +2,7 @@
 
 这是独立于 Aksharam 的本地 Git repo。手机 UI 入口是 `index.html`，运行 `npm run dev` 后访问 http://127.0.0.1:5187/ 。无需安装前端依赖。
 
-代码、素材、研究、分工与工作记录一起保存在本仓库。尚未创建 GitHub remote，未上传或公开。未来公开版本使用新的仓库与独立历史；详见 `PROJECT.md`。
+代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Private GitHub repo：https://github.com/xibahbah/bamboo-mobile 。未来公开版本使用新的仓库与独立历史；详见 `PROJECT.md`。
 
 当前实现是可交互的手机优先网页 UI：五个底部入口、帖子与点赞、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
 
@@ -48,3 +48,7 @@
 竹筒原图：透明背景的圆润竹制储蓄筒；三节竹身、浅黄顶部投币口、一片小叶；与成长图一致的柔和纸感；无文字、无人脸、无场景背景。使用内置 imagegen，未使用 CLI/API fallback。
 
 重新导出：`python3 scripts/build_assets.py`，然后 `python3 scripts/build_bank.py`。依赖 Pillow。
+
+## 简洁 UI 与测试
+
+默认 Warm stone 背景，You → Settings 可换 Morning mist / Soft clay。Hover、植物与转场动画暂时关闭。`npm ci` 后执行 `npm test` 跑 23 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。

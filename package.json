@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "python3 -m http.server 5187 --bind 127.0.0.1",
     "check": "node --check ui.js",
-    "assets": "python3 scripts/build_assets.py && python3 scripts/build_bank.py"
+    "assets": "python3 scripts/build_assets.py && python3 scripts/build_bank.py",
+    "test": "node --test tests/ux.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
   }
 }
