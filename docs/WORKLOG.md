@@ -46,3 +46,9 @@ Validation: 36 local tests passed, including the 1800ms deadline, skip/replay ca
 Fixed the detached fading rim reported in Keith’s screenshot. Replaced the top ellipse with an inset cut surface that folds geometrically and remains clipped to the current morph boundary. Added a 520ms Karma card entrance with leaf/text stagger, persistent bottom wordmark, reduced-motion handling and cancellation on dismissal/replay. The primary preview now points to the full opening → Karma → home flow, with a separate direct Karma link.
 
 Validation: 40 tests passed. Browser checked the formerly detached-rim moment at 583ms, full automatic handoff, card display and entering the home feed.
+
+## 2026-11-07 · Continuous morph and minimal daily reflection
+
+Replaced quantized SVG frame replacement with a persistent SVG scene and continuous, matching-edge geometry. A single height curve joins contraction and growth, preserving the 1800ms opening. The inset rim stays clipped to the live body. Karma now contains only an original sentence and Enter Community: 720ms text float/clarity reveal and a slightly delayed button entrance. Updated the preview and generated samples.
+
+Validation: JavaScript syntax checks passed; the combined working tree passed all 51 tests, including concurrent giving-page integration. The isolated release snapshot also passed all 41 UX tests against the existing published app shell; unrelated giving-page work remains separate. New regression coverage checks persistent SVG nodes, position/velocity continuity at former phase boundaries, clipping, animation cancellation, reduced motion and the direct Karma route. Browser verified opening → sentence → home, 390px presentation and a 320px viewport with no horizontal overflow. Screenshot: docs/mobile-quiet-quote.jpg. This change does not implement real payments or alter donation accounting.

@@ -43,4 +43,4 @@
 
 每日一句按 America/Los_Angeles 日期稳定选取，同一天重开不乱换；次日换一句，30 条循环。26 条 Bamboo 原创短句、4 条附来源的短引用。可通过关闭或 Enter community 立即离开。无假加载倒计时。见 DAILY-REFLECTIONS.md。
 
-每日一句现为居中的 A LITTLE KARMA 浅色卡片：竹林后自动轻弹出现，阅读后 Enter community 进入主页。可直接用 ?view=karma 预览；开场依然为 1.8 秒。
+每日一句只保留居中的原创短句与 Enter Community 按钮，无卡片。竹林后文字轻轻上浮并由模糊变清晰，按钮稍后淡入。可直接用 ?view=karma 预览；开场保持 1.8 秒。

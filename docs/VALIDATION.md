@@ -42,3 +42,9 @@ These checks cover the local UI demo. They do not validate real payments, backen
 ## 2026-11-07 · Rim regression and Karma entrance
 
 40 automated checks pass. Added coverage for clipping the folding rim to the current body, Karma entrance/dismiss/replay cancellation, reduced motion and the direct Karma route. Browser inspected the rim at 583ms and the full launch → Karma → home flow. Current screenshot: docs/mobile-karma-preview.jpg.
+
+## 2026-11-07 · Continuous morph and minimal daily reflection
+
+Replaced quantized SVG frame replacement with a persistent SVG scene and continuous, matching-edge geometry. A single height curve joins contraction and growth, preserving the 1800ms opening. The inset rim stays clipped to the live body. Karma now contains only an original sentence and Enter Community: 720ms text float/clarity reveal and a slightly delayed button entrance. Updated the preview and generated samples.
+
+Validation: JavaScript syntax checks passed; the combined working tree passed all 51 tests, including concurrent giving-page integration. The isolated release snapshot also passed all 41 UX tests against the existing published app shell; unrelated giving-page work remains separate. New regression coverage checks persistent SVG nodes, position/velocity continuity at former phase boundaries, clipping, animation cancellation, reduced motion and the direct Karma route. Browser verified opening → sentence → home, 390px presentation and a 320px viewport with no horizontal overflow. Screenshot: docs/mobile-quiet-quote.jpg. This change does not implement real payments or alter donation accounting.

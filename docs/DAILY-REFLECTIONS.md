@@ -1,18 +1,18 @@
-# 每日一句：文案和来源
+# 每日一句：文案和呈现
 
 目标：轻、温柔、留一点余味。不是捐款催促，不暗示捐钱就会得到财富、幸运或道德奖励。
 
-26 条原创短句署名 Bamboo，4 条短引用显示作者并可点击查阅原始页面。正文见 daily.js。原创文案与引用明确区分，不把新写的文案挂在名人名下。
+当前使用 30 条 Bamboo 原创短句，正文见 daily.js。页面只显示一句话和 Enter Community 按钮，不附卡片、日期、标题或图标。没有把原创文案挂在名人名下。
 
-本轮核对的引用来源（2026-11-07）：
+选择逻辑：使用 America/Los_Angeles 的日历日期，每天固定一条，30 天循环。跨午夜在下次打开时换句。内容内置，不依赖外部请求或假加载时间。
 
-- Thich Nhat Hanh：[No Mud, No Lotus，Plum Village 官方书页](https://plumvillage.org/books/no-mud-no-lotus)。
-- The Dalai Lama：[2014 Capitol Hill 官方活动记录](https://www.dalailama.com/news/2014/his-holiness-the-dalai-lama-spends-the-day-on-capitol-hill)。记录中 Harry Reid 引用其有关善意的话。
-- Thich Nhat Hanh：[Plum Village 官方 Autumn Mindful Living Weekend 页面](https://plumvillage.org/event/retreat/weekend-autumn-retreat-3-hamlets)。
-- The Dalai Lama：[2018 Mind & Life Conference 官方记录](https://www.dalailama.com/news/2018/mind-life-conference-reimagining-human-flourishing-fourth-day)。
+1.8 秒竹林形变结束后显示每日一句。文字 720ms 上浮、淡入并由模糊变清晰；按钮延迟 180ms 后用 460ms 上浮淡入。减少动态效果时立即呈现。关闭、重播和切后台取消旧动效。Enter Community 进入主页，资金和 streak 不受影响。
 
-选择逻辑：使用 America/Los_Angeles 的日历日期，不按浏览器所在时区。每天固定一条，30 天循环。跨午夜会在下次打开每日一句时换句。现在是内置内容，不依赖外部请求或假加载时间。
+## 历史文案研究
 
-开场现为 1.8 秒矢量形变，结束后调用 BambooDaily.show() 显示每日一句，再 Enter community 进入主页。动画完成、跳过、重播均不改资金和 streak。
+早期版本的四条短引用已退出当前轮播。研究来源保留供团队查阅，不作为当前文案的作者署名：
 
-当前每日一句以 A LITTLE KARMA 卡片呈现，520ms 轻弹入场，叶片和文字短暂错开。用户可立即关闭或进入社区；减少动态效果时不播放入场动画。卡片弹出不会改变捐款或 streak。
+- [Thich Nhat Hanh / No Mud, No Lotus，Plum Village](https://plumvillage.org/books/no-mud-no-lotus)
+- [Dalai Lama / 2014 Capitol Hill 活动记录](https://www.dalailama.com/news/2014/his-holiness-the-dalai-lama-spends-the-day-on-capitol-hill)
+- [Plum Village / Autumn Mindful Living Weekend](https://plumvillage.org/event/retreat/weekend-autumn-retreat-3-hamlets)
+- [Dalai Lama / 2018 Mind & Life Conference](https://www.dalailama.com/news/2018/mind-life-conference-reimagining-human-flourishing-fourth-day)
