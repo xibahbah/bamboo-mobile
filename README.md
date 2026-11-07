@@ -51,11 +51,11 @@
 
 ## 简洁 UI 与测试
 
-默认极简 Bamboo green 背景，You → Settings 可换 Morning mist / Soft clay。开场动效已启用；其余 hover 和环境动效保持关闭。`npm ci` 后执行 `npm test` 跑 36 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
+默认极简 Bamboo green 背景，You → Settings 可换 Morning mist / Soft clay。开场动效已启用；其余 hover 和环境动效保持关闭。`npm ci` 后执行 `npm test` 跑 40 项 UX 回归测试；测试覆盖本地演示，不代表后端已完成。
 
 ## 本轮可交互模拟
 
-- 主页面：[在线 App](https://xibahbah.github.io/bamboo-mobile/)（1.8 秒形变 → 每日一句 → 主页）。
+- 主页面：[在线 App](https://xibahbah.github.io/bamboo-mobile/)（1.8 秒形变 → Karma 弹出卡片 → 主页）。
 - [直接进入主页](https://xibahbah.github.io/bamboo-mobile/?view=home)。
 - [Morph 动画预览，可重播和拖动进度](https://xibahbah.github.io/bamboo-mobile/morph-preview.html)。
 - 最新 UX 与后端权限边界：`docs/UX-MOCKUP.md` / `BACKEND-HANDOFF.md`。
@@ -63,3 +63,5 @@
 - 开场现在自动播放 1.8 秒，画面相对首尾帧初稿放大 25%。投币、竹节收小、轮廓变形、竹林生长连续完成。支持 Skip / Escape、减少动态效果和 Settings 重播。
 - `python3 scripts/build_intro_motion.py` 生成 `intro-motion.js`：109 个矢量帧，运行时无几何依赖；作者工具需要 numpy、scipy、Pillow、contourpy。先运行 build_intro_frames.py，再运行 build_intro_motion.py。
 - `morph-preview.html` 可重播或拖动 0–1800ms 进度；`?frame=first` / `?frame=last` 保留静态端点。当前 30 天插画/GIF 素材保持独立。
+
+[直接预览 Karma](https://xibahbah.github.io/bamboo-mobile/?view=karma)。竹口已改为内嵌收拢，完整体验自动接上约半秒的 Karma 入场动效。

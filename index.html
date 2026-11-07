@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f3f1ec"><meta name="description" content="A little good, every day. Small acts of kindness, one shared San Diego community.">
 <title>Bamboo — A little good, every day</title>
-<link rel="stylesheet" href="ui.css?v=20261107-3"><link rel="stylesheet" href="assets/bamboo-motion.css"><link rel="stylesheet" href="quiet.css?v=20261107-3"><link rel="stylesheet" href="community.css?v=20261107-3">
+<link rel="stylesheet" href="ui.css?v=20261107-4"><link rel="stylesheet" href="assets/bamboo-motion.css"><link rel="stylesheet" href="quiet.css?v=20261107-4"><link rel="stylesheet" href="community.css?v=20261107-4">
 </head>
 <body>
 <dialog id="launch" class="launch" aria-labelledby="launch-title">
@@ -20,9 +20,18 @@
 </div></header>
 <div class="page"><main id="main" tabindex="-1"></main></div>
 <dialog id="sidebar" class="drawer" aria-labelledby="drawer-title"><div id="drawer-content"></div></dialog>
-<dialog id="daily" class="daily-dialog" aria-labelledby="daily-title"><button type="button" class="header-control daily-close" id="daily-close" aria-label="Close daily reflection">×</button><div class="daily-reflection"><span class="daily-eyebrow" id="daily-title">A MOMENT FOR TODAY</span><time id="daily-date"></time><blockquote id="daily-words"></blockquote><p id="daily-credit"></p></div><button type="button" class="button daily-enter" id="daily-enter">Enter community <span aria-hidden="true">→</span></button><span class="daily-wordmark" aria-hidden="true">bamboo</span></dialog>
+<dialog id="daily" class="daily-dialog" aria-labelledby="daily-title" aria-describedby="daily-words">
+  <button type="button" class="header-control daily-close" id="daily-close" aria-label="Close daily reflection">×</button>
+  <section class="karma-card" id="karma-card" tabindex="-1" autofocus>
+    <svg class="karma-leaf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M36 9C17 7 8 16 13 29C19 41 37 30 36 9Z" fill="#e4ecdd"/><path d="M12 38L30 17M22 27L20 18M25 24L33 24" stroke="#6f8864" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <h2 class="daily-eyebrow" id="daily-title">A LITTLE KARMA</h2><time id="daily-date"></time>
+    <blockquote id="daily-words"></blockquote><p id="daily-credit"></p>
+    <button type="button" class="button daily-enter" id="daily-enter">Enter community <span aria-hidden="true">→</span></button>
+  </section>
+  <span class="daily-wordmark" aria-hidden="true">bamboo</span>
+</dialog>
 <div class="toast" id="toast" role="status" hidden></div>
 <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
 <noscript><p>Please enable JavaScript to explore the Bamboo prototype.</p></noscript>
-<script src="ui.js?v=20261107-3"></script><script src="intro-frames.js?v=20261107-3"></script><script src="intro-motion.js?v=20261107-3"></script><script src="daily.js?v=20261107-3"></script><script src="intro.js?v=20261107-3"></script>
+<script src="ui.js?v=20261107-4"></script><script src="intro-frames.js?v=20261107-4"></script><script src="intro-motion.js?v=20261107-4"></script><script src="daily.js?v=20261107-4"></script><script src="intro.js?v=20261107-4"></script>
 </body></html>

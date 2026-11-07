@@ -38,3 +38,7 @@ These checks cover the local UI demo. They do not validate real payments, backen
 - Browser: checked intermediate boundaries at 750, 1050 and 1350ms; verified automatic opening → daily reflection → home. Preview scrubber and replay work.
 - At 320px viewport, document width is 320px and artwork width is 275.2px. No horizontal overflow after enlargement.
 - The opening is vector playback; previous statements that the full morph was pending apply only to the earlier endpoint-review milestone.
+
+## 2026-11-07 · Rim regression and Karma entrance
+
+40 automated checks pass. Added coverage for clipping the folding rim to the current body, Karma entrance/dismiss/replay cancellation, reduced motion and the direct Karma route. Browser inspected the rim at 583ms and the full launch → Karma → home flow. Current screenshot: docs/mobile-karma-preview.jpg.

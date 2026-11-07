@@ -40,3 +40,9 @@ Keith refined the intro: replaced the shoot with a bamboo coin bank and a suspen
 Implemented the requested automatic animation and enlarged the artwork by 25%. Reused the earlier signed-distance boundary technique, with height normalization and a fixed root for the growing stalk, coin occlusion at the slot, and staggered culm/leaf growth. Production now flows directly from animation to daily reflection. Added replay/scrubbing to the public preview page.
 
 Validation: 36 local tests passed, including the 1800ms deadline, skip/replay cancellation, reduced motion, unchanged money/streak, valid SVG geometry and the approved endpoint. Browser verified 750/1050/1350ms geometry, automatic daily quote and home handoff, and 320px overflow constraints. No files in Aksharam were modified.
+
+## 2026-11-07 · Attached rim and animated Karma card
+
+Fixed the detached fading rim reported in Keith’s screenshot. Replaced the top ellipse with an inset cut surface that folds geometrically and remains clipped to the current morph boundary. Added a 520ms Karma card entrance with leaf/text stagger, persistent bottom wordmark, reduced-motion handling and cancellation on dismissal/replay. The primary preview now points to the full opening → Karma → home flow, with a separate direct Karma link.
+
+Validation: 40 tests passed. Browser checked the formerly detached-rim moment at 583ms, full automatic handoff, card display and entering the home feed.

@@ -37,5 +37,7 @@
  document.addEventListener('visibilitychange',()=>{if(document.hidden)finish();});
  reducedMotion?.addEventListener?.('change',event=>{if(event.matches)finish();});
  window.BambooIntro={play,duration};
- if(new URLSearchParams(location.search).get('view')!=='home')play();
+ const initialView=new URLSearchParams(location.search).get('view');
+ if(initialView==='karma')window.BambooDaily.show();
+ else if(initialView!=='home')play();
 })();

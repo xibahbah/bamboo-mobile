@@ -51,9 +51,9 @@ test('organization profile has organization updates and no personal-content tabs
 test('daily reflection is stable per San Diego day and changes at midnight',t=>{const a=app(t);a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));const at=iso=>a.w.BambooDaily.forDate(new Date(iso));assert.equal(at('2026-11-07T09:00:00Z').text,at('2026-11-08T07:59:59Z').text);assert.notEqual(at('2026-11-08T07:59:59Z').text,at('2026-11-08T08:00:00Z').text);assert.equal(at('2026-11-08T08:00:00Z').key,'2026-11-08');});
 test('daily rotation has 30 distinct days and source credits for attributed quotes',t=>{const a=app(t);a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));const quotes=Array.from({length:30},(_,i)=>a.w.BambooDaily.forDate(new Date(Date.UTC(2026,10,7+i,20))));assert.equal(new Set(quotes.map(q=>q.text)).size,30);assert.equal(quotes.filter(q=>q.source).length,4);assert.ok(quotes.every(q=>q.source||q.author==='Bamboo'));a.w.BambooDaily.show();a.d.getElementById('daily-close').click();assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.saved(),null);});
 
-function introApp(t,{reduced=false,home=false}={}){
+function introApp(t,{reduced=false,home=false,view=null}={}){
  const a=app(t);let now=0,id=0;const raf=new Map(),timers=new Map();
- if(home)a.w.history.replaceState({},'', '?view=home');
+ if(home||view)a.w.history.replaceState({},'', '?view='+(view||'home'));
  Object.defineProperty(a.w.performance,'now',{value:()=>now});
  a.w.matchMedia=()=>({matches:reduced,addEventListener:()=>{}});
  a.w.requestAnimationFrame=cb=>{raf.set(++id,cb);return id;};
@@ -95,4 +95,30 @@ test('all morph samples are valid vector markup and retain the approved grove en
  const a=introApp(t,{home:true}),motion=a.w.BambooMotion;assert.ok(motion.duration<=2000);
  for(const frame of motion.frames){assert.doesNotMatch(frame,/NaN|undefined|Infinity|<image/);const svg=new a.w.DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg">'+frame+'</svg>','image/svg+xml');assert.equal(svg.querySelector('parsererror'),null);}
  assert.equal(motion.frames.at(-1),a.w.BambooFrames.last);
+});
+
+test('the folding bank rim stays clipped to the current body instead of floating and fading',t=>{
+ const a=introApp(t,{home:true});for(const ms of [350,500,583,650]){
+  const frame=a.w.BambooMotion.frames[Math.round(ms/1800*108)];
+  const svg=new a.w.DOMParser().parseFromString('<svg xmlns="http://www.w3.org/2000/svg">'+frame+'</svg>','image/svg+xml');
+  const rim=svg.querySelector('[data-part="rim"]');assert.ok(rim);assert.ok(rim.closest('[clip-path="url(#intro-core)"]'));
+  for(let parent=rim;parent;parent=parent.parentElement)assert.notEqual(parent.getAttribute('opacity'),'0');
+  assert.equal(svg.querySelector('ellipse'),null);
+ }
+});
+test('karma card animates on entry and cancels motion when dismissed or replayed',t=>{
+ const a=app(t),effects=[];a.w.matchMedia=()=>({matches:false,addEventListener:()=>{}});
+ a.w.Element.prototype.animate=function(frames,options){const effect={target:this,frames,options,cancelled:false,cancel(){this.cancelled=true;}};effects.push(effect);return effect;};
+ a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));a.w.BambooDaily.show();
+ assert.equal(effects.length,3);assert.equal(effects[0].target.id,'karma-card');assert.ok(effects[0].options.duration<=600);
+ a.w.BambooDaily.show();assert.ok(effects.slice(0,3).every(effect=>effect.cancelled));assert.equal(effects.length,6);
+ a.d.getElementById('daily-enter').click();assert.ok(effects.every(effect=>effect.cancelled));assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.saved(),null);
+});
+test('karma entrance respects reduced motion',t=>{
+ const a=app(t);a.w.matchMedia=()=>({matches:true,addEventListener:()=>{}});let calls=0;a.w.Element.prototype.animate=()=>{calls++;};
+ a.w.eval(fs.readFileSync(path.join(root,'daily.js'),'utf8'));a.w.BambooDaily.show();assert.equal(calls,0);assert.equal(a.d.getElementById('daily').open,true);
+});
+test('direct karma link opens the quote card and can continue to home',t=>{
+ const a=introApp(t,{view:'karma'});assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,true);
+ a.d.getElementById('daily-enter').click();assert.equal(a.d.getElementById('daily').open,false);assert.match(a.text(),/A familiar meal/);assert.equal(a.raf.size,0);
 });

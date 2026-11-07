@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'assets'/'intro'; OUT.mkdir(exist_ok=True)
-first='''<g id="bamboo-bank"><path d="M84 126Q120 111 156 126L153 211Q120 227 87 211Z" fill="#40634f"/><ellipse cx="120" cy="126" rx="36" ry="11" fill="#849b76"/><path d="M106 126H134" stroke="#294b39" stroke-width="4" stroke-linecap="round"/><path d="M86 171Q120 184 154 171" stroke="#b5c4a6" stroke-width="2.3" fill="none"/><path d="M87 208Q120 220 153 208" stroke="#b5c4a6" stroke-width="2.3" fill="none"/></g><g id="coin"><circle cx="120" cy="88" r="13" fill="#bbad70"/><circle cx="120" cy="88" r="9" fill="none" stroke="#f5f7f2" stroke-width="1.2"/><path d="M120 83v10" stroke="#f5f7f2" stroke-width="1.5" stroke-linecap="round"/></g>'''
+first='''<g id="bamboo-bank"><path d="M84 126Q120 111 156 126L153 211Q120 227 87 211Z" fill="#40634f"/><path d="M84 126Q120 111 156 126Q120 137 84 126Z" fill="#849b76"/><path d="M106 126H134" stroke="#294b39" stroke-width="4" stroke-linecap="round"/><path d="M86 171Q120 184 154 171" stroke="#b5c4a6" stroke-width="2.3" fill="none"/><path d="M87 208Q120 220 153 208" stroke="#b5c4a6" stroke-width="2.3" fill="none"/></g><g id="coin"><circle cx="120" cy="88" r="13" fill="#bbad70"/><circle cx="120" cy="88" r="9" fill="none" stroke="#f5f7f2" stroke-width="1.2"/><path d="M120 83v10" stroke="#f5f7f2" stroke-width="1.5" stroke-linecap="round"/></g>'''
 # Each culm shares the same floor; leaves are compact closed quadratic curves.
 stalks=[(73,150,-8,'#8ca17e'),(95,102,-6,'#6d8860'),(121,54,1,'#40634f'),(146,85,7,'#5b7851'),(169,140,10,'#8ca17e')]
 parts=[]

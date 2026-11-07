@@ -98,6 +98,22 @@ centers=[73,95,121,146,169]
 
 def group_transform(x,sx,sy):return f'matrix({sx:.4f} 0 0 {sy:.4f} {x*(1-sx):.3f} {224*(1-sy):.3f})'
 def xml(element):return ET.tostring(element,encoding='unicode')
+def bank_details(ms):
+ # An inset cut surface follows the shrinking body. The rim folds geometrically
+ # into the tip; no floating ellipse or opacity-faded lid survives the morph.
+ fold=phase(ms,310,730);depth=1-phase(ms,310,680)
+ rx=36*(1-fold);ry=11*depth;cy=126+26*phase(ms,560,730)
+ details=[]
+ if rx>.01 and ry>.01:
+  details.append(f'<path data-part="rim" d="M{120-rx:.3f} {cy:.3f}Q120 {cy-1.36*ry:.3f} {120+rx:.3f} {cy:.3f}Q120 {cy+ry:.3f} {120-rx:.3f} {cy:.3f}Z" fill="#849b76"/>')
+ slit=14*(1-phase(ms,310,620))
+ if slit>.01:
+  details.append(f'<path d="M{120-slit:.3f} {cy:.3f}H{120+slit:.3f}" stroke="#294b39" stroke-width="{4*(1-phase(ms,480,620)):.3f}" stroke-linecap="round"/>')
+ weight=2.3*(1-phase(ms,560,820))
+ if weight>.01:
+  details.extend(f'<path d="{p.get("d")}" fill="none" stroke="#b5c4a6" stroke-width="{weight:.3f}"/>' for p in list(bank)[3:])
+ return ''.join(details)
+
 def pose(ms):
  if ms>=1620:return art['last']
  pieces=[]
@@ -114,7 +130,10 @@ def pose(ms):
   pieces.append(f'<g transform="{group_transform(centers[i],.4+.6*growth,growth)}">'+''.join(parts)+'</g>')
  if ms<=560:
   scale=1-.42*phase(ms,310,560)
-  pieces.append(f'<g transform="{group_transform(120,scale,scale)}">{xml(bank)}</g>')
+  transform=group_transform(120,scale,scale)
+  pieces.append(f'<path d="{body}" transform="{transform}" fill="#40634f"/>')
+  pieces.append(f'<defs><clipPath id="intro-core"><path d="{body}" transform="{transform}"/></clipPath></defs>')
+  pieces.append(f'<g clip-path="url(#intro-core)"><g transform="{transform}">{bank_details(ms)}</g></g>')
  else:
   if ms<850:d=outline(bank_field*(1-phase(ms,560,850))+shoot_field*phase(ms,560,850))
   elif ms<1420:d=outline(shoot_field*(1-phase(ms,850,1420))+stem_field*phase(ms,850,1420))
@@ -127,10 +146,9 @@ def pose(ms):
   pieces.append(f'<defs><clipPath id="intro-core"><path d="{d}" transform="{transform}"/></clipPath></defs>')
   height_ratio=(40+130*phase(ms,850,1420))/170
   attachment=group_transform(121,1,height_ratio)
-  # Fine cut surfaces vanish while the solid bank boundary stays fully opaque.
-  detail=1-phase(ms,560,690)
-  if detail>0:
-   pieces.append(f'<g opacity="{detail:.3f}" transform="{group_transform(120,.58,.58)}">'+''.join(xml(p) for p in list(bank)[1:])+'</g>')
+  # Attach and clip every cut-surface detail to the CURRENT body boundary.
+  if ms<820:
+   pieces.append(f'<g clip-path="url(#intro-core)"><g transform="{group_transform(120,.58,.58)}">{bank_details(ms)}</g></g>')
   for node in nodes[2]:
    d=node.get('d');y=float(re.findall(r'-?\d+(?:\.\d+)?',d)[1]);u=phase(ms,1190+(224-y)*.4,1490+(224-y)*.4)
    if u>0:pieces.append(f'<g clip-path="url(#intro-core)"><g opacity="{u:.3f}" transform="{attachment}">{xml(node)}</g></g>')

@@ -79,3 +79,16 @@ body:has(dialog[open]){overflow:hidden}
 #launch-art{width:min(300px,86vw);height:auto;aspect-ratio:240/260;transform:translateY(-49px)}
 .launch-controls{justify-content:flex-end}
 @media(max-height:650px){#launch-art{width:min(260px,82vw);height:auto;transform:translateY(-30px)}}
+/* Karma arrives as a small card. Its entrance is driven by the Web Animations API. */
+.karma-card{width:min(350px,100%);max-height:calc(100dvh - 180px);overflow:auto;overscroll-behavior:contain;background:#fcfdf9;border:1px solid #e0e7d9;border-radius:24px;padding:29px 27px 24px;text-align:center;margin-top:-36px;box-shadow:0 12px 40px #314b3610;transform-origin:50% 60%}
+.karma-leaf{display:block;width:46px;height:46px;margin:0 auto 18px;transform-origin:50% 80%}
+.karma-card .daily-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.6px;line-height:1.5;margin:0;color:#71816d}
+.karma-card #daily-date{font-size:10px;margin-top:8px}
+.karma-card #daily-words{font-size:28px;line-height:1.4;margin:25px 0 20px;letter-spacing:-.5px}
+.karma-card #daily-credit{font-size:10px;margin:0 0 24px}
+.karma-card .daily-enter{position:static;display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin:0;padding:10px 0;font-size:12px}
+.daily-dialog{padding:32px 22px}.daily-wordmark{font-size:30px;letter-spacing:-1.4px}
+@media(max-width:360px){.daily-dialog{padding-left:18px;padding-right:18px}.karma-card{padding:25px 22px 21px}.karma-card #daily-words{font-size:25px}}
+@media(max-height:650px){.karma-card{max-height:calc(100dvh - 135px);margin-top:-24px;padding:20px 22px}.karma-leaf{width:34px;height:34px;margin-bottom:10px}.karma-card #daily-words{font-size:23px;margin:18px 0 14px}.karma-card #daily-credit{margin-bottom:14px}}
+/* Programmatic dialog focus lands on a non-interactive card, not a control. */
+.karma-card:focus{outline:none}

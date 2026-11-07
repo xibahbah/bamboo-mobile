@@ -43,6 +43,32 @@
   return {...quotes[index],key:`${value('year')}-${String(value('month')).padStart(2,'0')}-${String(value('day')).padStart(2,'0')}`,dateLabel:new Intl.DateTimeFormat('en-US',{timeZone:zone,month:'long',day:'numeric'}).format(date)};
  }
  const dialog=document.getElementById('daily');
+ let entranceAnimations=[];
+ const motionPreference=window.matchMedia?.('(prefers-reduced-motion: reduce)');
+ const stopEntrance=()=>{entranceAnimations.forEach(animation=>animation.cancel());entranceAnimations=[];};
+ function animateEntrance(){
+  stopEntrance();
+  if(motionPreference?.matches)return;
+  const card=document.getElementById('karma-card');
+  if(typeof card.animate!=='function')return;
+  entranceAnimations.push(card.animate([
+   {opacity:0,transform:'translateY(22px) scale(.96)'},
+   {opacity:1,transform:'translateY(-2px) scale(1.006)',offset:.75},
+   {opacity:1,transform:'translateY(0) scale(1)'}
+  ],{duration:520,easing:'cubic-bezier(.2,.8,.2,1)'}));
+  entranceAnimations.push(card.querySelector('.karma-leaf').animate([
+   {opacity:0,transform:'rotate(-12deg) scale(.78)'},
+   {opacity:1,transform:'rotate(0) scale(1)'}
+  ],{duration:480,delay:60,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}));
+  entranceAnimations.push(document.getElementById('daily-words').animate([
+   {opacity:0,transform:'translateY(7px)'},
+   {opacity:1,transform:'translateY(0)'}
+  ],{duration:360,delay:130,easing:'ease-out',fill:'backwards'}));
+ }
+ dialog.addEventListener('close',()=>{if(!dialog.open)stopEntrance();});
+ dialog.addEventListener('cancel',stopEntrance);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopEntrance();});
+ motionPreference?.addEventListener?.('change',event=>{if(event.matches)stopEntrance();});
  function show(){
   const quote=forDate();
   document.getElementById('daily-words').textContent=quote.text;
@@ -50,8 +76,9 @@
   const credit=document.getElementById('daily-credit');credit.replaceChildren();
   if(quote.source){const link=document.createElement('a');link.textContent=quote.author;link.href=quote.source;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',`Read the source for this ${quote.author} quote`);credit.append(link);}else{credit.textContent='Bamboo · Daily reflection';}
   if(!dialog.open)dialog.showModal();
+  animateEntrance();
  }
- const close=()=>{dialog.close();document.getElementById('main').focus({preventScroll:true});};
+ const close=()=>{stopEntrance();dialog.close();document.getElementById('main').focus({preventScroll:true});};
  document.getElementById('daily-enter').addEventListener('click',close);
  document.getElementById('daily-close').addEventListener('click',close);
  window.BambooDaily={show,forDate};
