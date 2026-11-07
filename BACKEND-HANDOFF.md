@@ -1,6 +1,6 @@
 # Bamboo 后端交接：直接按这份开工
 
-Private repo：https://github.com/xibahbah/bamboo-mobile
+Public repo：https://github.com/xibahbah/bamboo-mobile
 
 这是独立的手机社区应用，不是 Aksharam。前端已经能演示，当前所有帖子、捐款和聊天只存在浏览器 localStorage。**后端同学需要实现下面的服务，不要把现在的前端状态当作可信数据。**
 

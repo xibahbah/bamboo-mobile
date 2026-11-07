@@ -2,7 +2,7 @@
 
 这是独立于 Aksharam 的本地 Git repo。手机 UI 入口是 `index.html`，运行 `npm run dev` 后访问 http://127.0.0.1:5187/ 。无需安装前端依赖。
 
-代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Private GitHub repo：https://github.com/xibahbah/bamboo-mobile 。未来公开版本使用新的仓库与独立历史；详见 `PROJECT.md`。
+代码、素材、研究、分工与工作记录一起保存在本仓库。队友先看 `BACKEND-HANDOFF.md`。Public GitHub repo：https://github.com/xibahbah/bamboo-mobile 。未来公开版本使用新的仓库与独立历史；详见 `PROJECT.md`。
 
 当前实现是可交互的手机优先网页 UI：五个底部入口、帖子与点赞、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
 

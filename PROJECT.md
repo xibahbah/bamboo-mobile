@@ -19,7 +19,7 @@ This repository is exclusively for the Bamboo humanities hackathon mobile applic
 
 ## Repository boundaries
 
-Independent Git history with private GitHub remote: https://github.com/xibahbah/bamboo-mobile . The working source, assets, planning, and tests are kept together here. `package.json` is marked private to prevent accidental npm publishing.
+Independent Git history with public GitHub remote: https://github.com/xibahbah/bamboo-mobile . The working source, assets, planning, and tests are kept together here. `package.json` is marked private to prevent accidental npm publishing.
 
 Keep working commits and planning here. When the team explicitly requests a public release, export the agreed source/assets into a NEW repository, without copying this `.git` history. Review which documents to include at that time. Do not rewrite or erase this working history automatically.
 

@@ -20,3 +20,7 @@ This file records project decisions, not raw private conversation transcripts or
 - Added saved-post access, own-post removal/undo, draft preservation and payment failure recovery.
 - Added 23 automated UX checks plus mobile browser inspection.
 - Created BACKEND-HANDOFF.md with ownership, routes, data constraints and acceptance tests for the two backend teammates.
+
+## Public collaboration — user decision
+
+On 2026-11-07 the owner explicitly requested making the existing working repository public, including its existing history. This supersedes the earlier plan to use a separate public repository. GitHub Pages is being enabled for a shareable interactive demo. Collaborators are invited separately by the owner.
