@@ -6,6 +6,15 @@
 
 当前实现是可交互的手机优先网页 UI：1.8 秒投币竹节形变开场、左上侧栏、组织与个人混合信息流、个人 Stories / Recipes / Culture、点赞收藏、资料编辑、模拟资金与成长、主动选择上墙。后端、真实支付、原生 app 外壳与 Widget 接入尚未实现。
 
+## 团队贡献 / Team contributions
+
+Bamboo 是一个将 **compassion（慈悲与关怀）** 融入日常行动的团队项目，贡献包括产品设计、交互原型、前端开发与整合。
+
+| 贡献者 | 贡献内容 |
+| --- | --- |
+| **Yan Zu Tan** — [@yanzu-devv](https://github.com/yanzu-devv) | 产品与 UX 设计方向及交互原型：竹子连续善行 Widget、多语言启动静思语、Account 设置与充值／捐款流程，以及按地区筛选、头像等大且位置固定的社区泡泡壁纸。 |
+| **[@xibahbah](https://github.com/xibahbah)** | 仓库维护、前端实现与整合，相关实现记录见本仓库提交历史。 |
+
 ## 成长素材包
 
 打开 `preview.html` 可拖动第 1–90 天，预览成长、轻微摇摆、竹筒回应与 Widget 外观。文件使用相对路径，完整保留 assets 文件夹即可离线查看。
