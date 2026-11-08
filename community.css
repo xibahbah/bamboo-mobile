@@ -146,4 +146,4 @@ h1,h2,h3,.button,.finance-links strong,.finance-links small,.message-row strong{
 .post-head .org-mark{grid-column:1/-1;grid-row:2;width:auto;height:auto;display:block;justify-self:start;border-radius:0;background:none;margin:0;max-width:100%}
 .post-head .verification{display:block;line-height:1.5}
 
-.post-actions .repost{margin-left:auto}.reaction.repost[aria-pressed=true]{color:var(--green);background:var(--pale);border-radius:8px}.reaction.repost[aria-pressed=true] .icon{fill:none;stroke:currentColor}
+.post-actions .repost{margin-left:auto;min-width:28px;justify-content:flex-end;background:none;border:0;box-shadow:none}.reaction.repost[aria-pressed=true]{color:var(--green);background:none;border:0;box-shadow:none}.reaction.repost .icon{fill:none;stroke:currentColor}.reaction.repost[aria-pressed=true] .icon{fill:none;stroke:currentColor;stroke-width:2.5}
