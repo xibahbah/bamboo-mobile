@@ -37,18 +37,25 @@
  // Small-screen illustration: deliberately broader than the full landscape stems.
  function streakColor(day){const t=Math.min(1,Math.max(0,(day-1)/29));const a=[153,170,143],b=[43,79,52];return `rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`;}
  function widget(days){
-  const progress=Math.min(1,Math.max(0,days)/90),top=72-progress*12,bottom=174;
-  const color=streakColor(days);
-  return `<ellipse cx="80" cy="181" rx="39" ry="5" fill="#e4e9dc"/>
-   <g data-plant="0" data-art="bamboo-bank">
-    <path d="M47 ${top}H113V${bottom}C113 ${bottom+12} 47 ${bottom+12} 47 ${bottom}Z" fill="${color}"/>
-    <path d="M47 ${top}Q54 ${top+6} 60 ${top+7}V${bottom+5}Q49 ${bottom+3} 47 ${bottom}Z" fill="#ffffff" opacity=".09"/>
-    <path d="M47 ${bottom-23}Q80 ${bottom-15} 113 ${bottom-23}" fill="none" stroke="#d1ddbd" stroke-width="2" opacity=".65"/>
-    <ellipse cx="80" cy="${top}" rx="33" ry="10" fill="#b5c5a0"/>
-    <path d="M66 ${top}h28" stroke="#3b5239" stroke-width="4" stroke-linecap="round"/>
-    <ellipse cx="80" cy="${top-25}" rx="10" ry="13" fill="#c2ccac"/>
-    <path d="M80 ${top-31}v12" stroke="#f4f5e9" stroke-width="2" stroke-linecap="round"/>
-   </g>`;
+  const d=Math.max(0,Number(days)||0),count=Math.min(6,Math.max(1,Math.ceil(d/14)));
+  const positions=[{x:80,y:180,h:151},{x:54,y:183,h:117},{x:105,y:184,h:135},{x:31,y:181,h:101},{x:130,y:182,h:112},{x:68,y:188,h:143}];
+  let art='<ellipse cx="80" cy="185" rx="63" ry="5" fill="#e4e9dc"/>';
+  // Stable planting positions: existing bamboo never shuffle as a new shoot appears.
+  for(let i=count-1;i>=0;i--){
+   const age=Math.min(14,Math.max(0,d-i*14)),p=positions[i],birth=i===0?1:Math.min(1,age);
+   const t=Math.min(1,Math.max(0,(age-1)/7)),smooth=t*t*(3-2*t),width=30-16*smooth;
+   const step=(p.h-30)/13,height=30+Math.max(0,age-1)*step,half=width/2,top=-height;
+   const color=i===0?streakColor(d):['','#78956a','#5f8255','#8ca77a','#769566','#668b5c'][i];
+   let body=`<path d="M-${half} ${top}Q0 ${top-4} ${half} ${top}V-3Q${half} 3 0 3Q-${half} 3 -${half} -3Z" fill="${color}"/>
+    <path d="M-${half*.62} ${top+7}V-3" stroke="#e1e8ce" stroke-width="${width*.12}" opacity=".23" stroke-linecap="round"/>`;
+   for(let n=1;n<14;n++){const alpha=Math.min(1,Math.max(0,age-n)),yy=-n*step;body+=`<path data-node="${n}" d="M-${half*.92} ${yy}Q0 ${yy+2} ${half*.92} ${yy}" fill="none" stroke="#d0dcbb" stroke-width="1.15" opacity="${alpha*.65}"/>`;}
+   const bank=1-smooth;body+=`<ellipse cx="0" cy="${top}" rx="${half}" ry="${2+bank*3}" fill="#b9caa4" opacity="${.45+bank*.55}"/>
+    <path d="M-${half*.4} ${top}h${half*.8}" stroke="#3b5239" stroke-width="2" stroke-linecap="round" opacity="${bank}"/>`;
+   if(i===0&&age<5)body+=`<g opacity="${Math.max(0,1-(age-1)/4)}"><ellipse cx="0" cy="${top-16}" rx="5" ry="7" fill="#bdcba4"/><path d="M0 ${top-19}v6" stroke="#f2f4e6" stroke-width="1.3"/></g>`;
+   const leafCount=Math.min(3,Math.max(0,(d-84-i)/6+1));if(d>84+i)for(let l=0;l<Math.ceil(leafCount);l++){const opacity=Math.min(1,Math.max(0,leafCount-l)),yy=-height*(.45+l*.17),dir=(i+l)%2?1:-1;body+=`<path d="M0 ${yy}Q${dir*11} ${yy-22} ${dir*25} ${yy-23}Q${dir*22} ${yy-5} 0 ${yy}" fill="#789a63" opacity="${opacity}"/>`;}
+   art+=`<g data-plant="${i}" data-age="${age}" transform="translate(${p.x} ${p.y}) scale(${birth}) rotate(${[-2,3,1,-4,4,-1][i]})">${body}</g>`;
+  }
+  return art;
  }
  root.BambooGivingScene={render,plantState,layout,themes,plant,widget,streakColor};
  if(typeof module!=='undefined')module.exports=root.BambooGivingScene;
