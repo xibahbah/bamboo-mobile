@@ -4,15 +4,15 @@
  const params=new URLSearchParams(location.search);
  const organizationId=params.get('recipient'),organizationName=Object.hasOwn(adapter.organizations||{},organizationId)?adapter.organizations[organizationId]:null;
  const recipient=organizationName?{id:organizationId,name:organizationName,storyId:(params.get('story')||'').slice(0,100)}:null;
- let state,visualDays=0,busy=false,animation=0,queue=[];
+ let state,visualDays=0,busy=false,animation=0,queue=[],previewDay=null;
  const fail=message=>{$('failure').textContent=message;$('failure').hidden=false;};
  function render(){
   if(!state)return;
-  $('landscape').innerHTML=scene.render({days:visualDays,environment:state.environment,panorama:state.panorama,aspect:innerWidth/innerHeight});
+  $('landscape').innerHTML=scene.render({days:visualDays,environment:state.environment,panorama:previewDay===null?state.panorama:true,aspect:innerWidth/innerHeight});
   $('streak-value').textContent=state.streak;$('streak-value').parentElement.setAttribute('aria-label',`${state.streak} day giving streak`);
   const units=Math.floor(visualDays),amount=((state.amountCents||0)/100).toFixed(2);
   $('growth-title').textContent=units===0?'A little beginning':units>=84?'Your grove is growing leaves':`${Math.min(6,Math.floor(units/14))} bamboo · ${units%14} / 14 segments`;
-  $('growth-detail').textContent='One giving day. One new segment.';
+  $('growth-detail').textContent=previewDay===null?'One giving day. One new segment.':`Developer preview · Day ${previewDay} · Actual streak unchanged`;
   $('recipient-label').textContent=recipient?`For ${recipient.name}`:'General donation';
   $('tap-amount').textContent=recipient?`$${amount} / tap`:`General donation\n$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
   $('give').hidden=false;$('find-support').hidden=!!recipient;if(!recipient)$('give').setAttribute('aria-label',`General donation $${amount} · demo, no real charge`);
@@ -46,6 +46,12 @@
   }
   busy=false;$('give').setAttribute('aria-busy','false');render();
  }
+ function previewGrowth(){if(!state)return;previewDay=Math.max(0,Math.min(112,Number($('preview-growth').value)));$('preview-growth-value').textContent=previewDay;grow(previewDay);}
+ function resetPreview(){if(!state)return;previewDay=null;$('preview-growth').value=Math.min(112,state.growthDays);$('preview-growth-value').textContent=state.growthDays;grow(state.growthDays);}
+ $('preview-growth').addEventListener('input',previewGrowth);
+ $('preview-growth').addEventListener('wheel',event=>{if(!state||!event.deltaY)return;event.preventDefault();$('preview-growth').value=Math.max(0,Math.min(112,Number($('preview-growth').value)+(event.deltaY>0?1:-1)));previewGrowth();},{passive:false});
+ $('preview-reset').addEventListener('click',resetPreview);
+ $('developer-preview').addEventListener('toggle',()=>{if(!$('developer-preview').open&&previewDay!==null)resetPreview();});
  $('find-support').addEventListener('click',()=>{if(parent!==window)parent.postMessage({type:'bamboo:giving-navigation',discover:true},location.origin);else location.href='index.html?view=home#organizations';});
  $('give').addEventListener('click',()=>{
   if(!state)return;$('failure').hidden=true;
@@ -61,7 +67,7 @@
  $('environments').addEventListener('click',event=>{if(event.target===$('environments')){const rect=event.target.getBoundingClientRect();if(event.clientY<rect.top)$('environments').close();}});
  window.addEventListener('resize',render);
  if(parent!==window){$('navigation').hidden=true;$('navigation').setAttribute('aria-label','Back to Bamboo');$('navigation').innerHTML='<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h11"/></svg>';$('navigation').addEventListener('click',event=>{event.preventDefault();parent.postMessage({type:'bamboo:giving-navigation'},location.origin);});}
- try{state=await adapter.load();visualDays=state.growthDays;
+ try{state=await adapter.load();visualDays=state.growthDays;$('preview-growth').value=Math.min(112,state.growthDays);$('preview-growth-value').textContent=state.growthDays;
  const date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
  let firstVisit=false;try{const key='bamboo-grove-entrance-v1';firstVisit=localStorage.getItem(key)!==date;localStorage.setItem(key,date);}catch{}
  if(firstVisit&&!reduced.matches&&state.growthDays>0){visualDays=Math.max(0,state.growthDays-1);render();grow(state.growthDays);}else render();
