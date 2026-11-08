@@ -15,7 +15,7 @@ Pulled commit `7b70da7` (three revised posts and photographs). Resolved the shar
 
 ## Verification
 
-68 automated tests passed, including navigation/history, filters, stories/recipes/culture, escaping, save/unsave, profile editing, post removal/undo, form validation, demo payment failure and idempotency, daily growth, environment preferences, six-bamboo geometry, intro and reduced motion, quote transitions, widget synchronization, community eligibility/consent/empty states, and phone launch/reload.
+70 automated tests passed, including navigation/history, filters, stories/recipes/culture, escaping, save/unsave, profile editing, post removal/undo, form validation, demo payment failure and idempotency, daily growth, environment preferences, six-bamboo geometry, intro and reduced motion, quote transitions, widget synchronization, community eligibility/consent/empty states, and phone launch/reload.
 
 Browser checks at phone dimensions covered recipient gifts, two receipts with no extra same-day growth, Transaction History, replay-only grove, environment selection, messages, profile save, recipe/culture tabs, save/unsave, city selection, empty community, new generated portraits, and the teammate's photo post. The opening animation was observed in the phone shell. A browser-injected MutationObserver error appeared in the preview logs; no matching MutationObserver exists in project code, so its origin was not established.
 
@@ -33,3 +33,5 @@ Browser checks at phone dimensions covered recipient gifts, two receipts with no
 This is a browser phone simulation, not native iOS/Android testing. No real payment processing, message delivery, GPS, server-side verification, or installed native widget is implemented. All member eligibility and transactions are local demo data. Ports 5187 and 5188 have separate browser storage, so their demo counts may differ. Generated portraits and new city populations are fictional. A real device, payment backend, cross-tab payment concurrency, and server-enforced consent require separate testing.
 
 Home-screen widget preview slider validated at days 1, 7, 28, 84, and 90. It does not write to localStorage. The launch icon and widget both open the full intro; Reload latest returns to the phone launcher.
+
+Visual refinement: a shared compact-widget renderer now uses staggered heights and softer nodes. The streak color interpolates from sage to dark green through day 30. Bamboo coin-bank SVG replaces the app tile monogram. A synchronous boot gate hides Home until the intro modal is ready; regression coverage verifies gate ordering.

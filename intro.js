@@ -26,7 +26,7 @@
   stop();
   const daily=document.getElementById('daily');if(daily.open)daily.close();
   art.setAttribute('aria-label','A coin enters a bamboo bank, which becomes a growing grove');
-  draw(0);if(!launch.open)launch.showModal();running=true;
+  draw(0);if(!launch.open)launch.showModal();document.documentElement.classList.remove('bamboo-boot');running=true;
   if(reducedMotion?.matches||!renderer){finish();return;}
   started=performance.now();
   deadline=setTimeout(finish,duration);
@@ -38,6 +38,6 @@
  reducedMotion?.addEventListener?.('change',event=>{if(event.matches)finish();});
  window.BambooIntro={play,duration};
  const initialView=new URLSearchParams(location.search).get('view');
- if(initialView==='karma')window.BambooDaily.show();
+ if(initialView==='karma'){window.BambooDaily.show();document.documentElement.classList.remove('bamboo-boot');}
  else if(initialView!=='home')play();
 })();

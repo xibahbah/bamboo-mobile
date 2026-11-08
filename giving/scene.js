@@ -33,6 +33,22 @@
   const plants=layout(days,panorama,aspect);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${1000*aspect} 1000"><defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="${t.sky}"/><stop offset="1" stop-color="${t.haze}"/></linearGradient><linearGradient id="ground" x2=".2" y2="1"><stop stop-color="${t.ground}"/><stop offset="1" stop-color="${t.front}"/></linearGradient><radialGradient id="light"><stop stop-color="#ffffef" stop-opacity=".6"/><stop offset="1" stop-color="#ffffef" stop-opacity="0"/></radialGradient></defs><g transform="scale(${aspect} 1)"><path fill="url(#sky)" d="M0 0H1000V1000H0Z"/><ellipse cx="630" cy="275" rx="310" ry="280" fill="url(#light)"/><ellipse cx="660" cy="260" rx="${36/aspect}" ry="36" fill="#fffcef" opacity=".38"/>${distant}<path d="M0 535Q155 443 325 506T670 496T1000 520V1000H0Z" fill="${t.far}" opacity=".5"/><path d="M0 583Q240 485 463 570T1000 532V1000H0Z" fill="${t.hill}" opacity=".36"/>${coast}<path d="M0 659Q230 599 510 630T1000 604V1000H0Z" fill="url(#ground)"/><path d="M0 790Q270 692 559 743T1000 687M0 855Q320 771 625 827T1000 760" fill="none" stroke="${t.line}" stroke-width="1.1" opacity=".12"/><ellipse cx="500" cy="665" rx="${panorama?Math.min(300,1000*aspect*.38):55}" ry="7" fill="${t.line}" opacity=".09"/></g><g transform="translate(${500*aspect-500} 0)">${plants.map(p=>plant(days,p)).join('')}<path d="M443 666q11-5 20-2m74 5q8-4 14-2" fill="none" stroke="${t.line}" stroke-width="1" opacity=".35"/></g></svg>`;
  }
- root.BambooGivingScene={render,plantState,layout,themes,plant};
+
+ // Small-screen illustration: deliberately broader than the full landscape stems.
+ function streakColor(day){const t=Math.min(1,Math.max(0,(day-1)/29));const a=[153,170,143],b=[43,79,52];return `rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`;}
+ function widget(days){
+  const count=Math.min(6,Math.max(1,Math.ceil(days/14))),gap=count>3?20:28;
+  let art='<ellipse cx="80" cy="182" rx="64" ry="7" fill="#e5eadc"/>';
+  for(let i=0;i<count;i++){
+   const age=Math.max(0,Math.min(14,days-i*14)),x=80+(i-(count-1)/2)*gap,y=180-(i%2)*3;
+   const mature=[154,120,166,138,151,111][i];const h=age<=3?38+age*9:65+(age-3)*(mature-65)/11,w=count>3?10:14;
+   let body='';
+   if(age<=3){body=`<path d="M-${w*.7} 0Q-${w} -${h*.52} 0 -${h}Q${w} -${h*.52} ${w*.7} 0Z" fill="#759563"/><path d="M0 -${h*.85}V-3" stroke="#b8ca97" stroke-width="3" stroke-linecap="round"/><path d="M-${w*.58} -${h*.28} 0 -${h*.42} ${w*.58} -${h*.28}" fill="none" stroke="#a9c18b" stroke-width="2"/>`;}
+   else{body=`<rect x="-${w/2}" y="-${h}" width="${w}" height="${h}" rx="${w*.3}" fill="${i%2?'#72915f':'#50734b'}"/><path d="M-${w*.22} -${h-9}V-6" stroke="#a5bd81" stroke-width="${w*.12}" stroke-linecap="round" opacity=".45"/>`;for(let n=1;n<=Math.min(13,Math.floor(age));n++){const yy=-h*n/(Math.floor(age)+1);body+=`<path d="M-${w*.46} ${yy}q${w*.46} 2 ${w*.92} 0" stroke="#b8cba3" stroke-opacity=".75" stroke-width="1.3" stroke-linecap="round"/>`;}}
+   const leaves=Math.max(0,Math.min(3,(days-84-i)/6+1));if(days>84+i)for(let l=0;l<Math.floor(leaves);l++){const yy=-h*.52-l*25,dir=l%2?-1:1;body+=`<path d="M0 ${yy}q${dir*10} -28 ${dir*25} -24q-${dir*3} 20 -${dir*25} 24" fill="#789b5d"/>`;}
+   art+=`<g data-plant="${i}" transform="translate(${x} ${y}) rotate(${[-3,2,-1,3,-2,4][i]})">${body}</g>`;
+  }return art;
+ }
+ root.BambooGivingScene={render,plantState,layout,themes,plant,widget,streakColor};
  if(typeof module!=='undefined')module.exports=root.BambooGivingScene;
 })(typeof window!=='undefined'?window:globalThis);

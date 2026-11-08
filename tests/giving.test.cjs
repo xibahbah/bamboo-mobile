@@ -91,3 +91,10 @@ test('growth animates only on the first grove visit of a San Diego day',async t=
  const repeat=await visit(marker);assert.equal(repeat.frames(),0);repeat.d.getElementById('give').click();assert.equal(repeat.frames(),0);
  const next=await visit('2000-01-01');assert.equal(next.frames(),1);
 });
+
+test('widget illustration stays legible and bounded while streak color deepens',()=>{
+ for(const day of [0,1,3,7,14,28,84,90,365]){const art=scene.widget(day);assert.doesNotMatch(art,/NaN|undefined|Infinity/);const doc=new JSDOM('<svg xmlns="http://www.w3.org/2000/svg">'+art+'</svg>',{contentType:'image/svg+xml'});assert.equal(doc.window.document.querySelectorAll('[data-plant]').length,Math.min(6,Math.max(1,Math.ceil(day/14))));doc.window.close();}
+ const color=day=>scene.streakColor(day).match(/\d+/g).map(Number);
+ for(let day=2;day<=90;day++)assert.ok(color(day).every((n,i)=>n<=color(day-1)[i]));
+ assert.equal(scene.streakColor(30),scene.streakColor(90));
+});
