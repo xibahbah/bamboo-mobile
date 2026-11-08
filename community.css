@@ -150,3 +150,5 @@ h1,h2,h3,.button,.finance-links strong,.finance-links small,.message-row strong{
 
 /* Brief, translucent feedback that never intercepts taps. */
 .toast{background:rgba(36,62,48,.72);color:#fff;padding:8px 14px;font-size:12px;line-height:1.4;border-radius:12px;box-shadow:none;pointer-events:none;bottom:calc(82px + env(safe-area-inset-bottom))}
+
+.post-content .recipe-cover{width:100%;height:auto;max-height:360px;object-fit:cover;aspect-ratio:4/3!important;border-radius:14px;margin-top:14px;background:var(--pale)}.post-content .photo-credit{font-size:10px;line-height:1.4;color:var(--muted);margin:5px 0 12px}
