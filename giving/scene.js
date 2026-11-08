@@ -21,8 +21,11 @@
   for(let y=matureHeight(item.index)/14;y<height-1;y+=matureHeight(item.index)/14){const x=lean*(y/height)**2;art+=`<path d="M${x-4} ${-y}q4 1.7 8 0" fill="none" stroke="#c1d0a9" stroke-width="1.7"/><path d="M${x-4.5} ${-y+2}h9" stroke="#294b37" stroke-width=".6"/>`;}
   for(let j=0;j<18;j++){
    const u=clamp(leaves-j);if(!u)continue;
-   const side=j%2?-1:1,y=-height*(.30+.57*(j/17)),x=lean*(-y/height)**2,length=46+Math.sin(j*2.13+item.index)*14,dx=side*length,dy=-17-Math.cos(j*1.4)*13;
-   art+=`<g transform="translate(${x} ${y}) scale(${u})"><path d="M0 0Q${dx*.38} ${dy*.5-8} ${dx} ${dy}" fill="none" stroke="#486c47" stroke-width="1.1"/><path d="M${dx*.18} ${dy*.34}Q${dx*.42} ${dy-15} ${dx} ${dy}Q${dx*.65} ${dy+12} ${dx*.18} ${dy*.34}Z" fill="${j%3?'#53774f':'#73905d'}"/>${j%3===0?`<path d="M${dx*.34} ${dy*.52}Q${dx*.20} ${dy-26} ${dx*.48} ${dy-37}Q${dx*.65} ${dy-18} ${dx*.34} ${dy*.52}Z" fill="#638456"/>`:''}</g>`;
+   // First leaves occupy alternating upper nodes; later growth fills the canopy.
+   const tiers=[12,10,11,9,13,8],tier=tiers[j%6],fraction=(tier-Math.floor(j/6)*.32)/14;
+   const side=(j+item.index+Math.floor(j/6))%2?-1:1,y=-height*fraction,x=lean*fraction**2;
+   const length=28+(j%3)*5+Math.sin(item.index*1.7+j)*3,dx=side*length,dy=-12-(j%3)*5;
+   art+=`<g data-leaf="${j}" data-height="${fraction}" transform="translate(${x} ${y}) scale(${u})"><path d="M0 0Q${dx*.35} ${dy-3} ${dx} ${dy}" fill="none" stroke="#55734c" stroke-width=".8"/><path d="M${dx*.2} ${dy*.5}Q${dx*.55} ${dy-9} ${dx*1.18} ${dy-4}Q${dx*.75} ${dy+6} ${dx*.2} ${dy*.5}Z" fill="${j%3?'#52764e':'#789260'}"/><path d="M${dx*.46} ${dy*.8}Q${dx*.48} ${dy-18} ${dx*.83} ${dy-23}Q${dx*.85} ${dy-10} ${dx*.46} ${dy*.8}Z" fill="#6a8959"/></g>`;
   }
   return `<g data-plant="${item.index}" transform="translate(${item.x} ${item.y}) scale(${item.scale})" opacity="${item.opacity}">${art}</g>`;
  }
@@ -52,7 +55,7 @@
    const bank=1-smooth;body+=`<ellipse cx="0" cy="${top}" rx="${half}" ry="${2+bank*3}" fill="#b9caa4" opacity="${.45+bank*.55}"/>
     <path d="M-${half*.4} ${top}h${half*.8}" stroke="#3b5239" stroke-width="2" stroke-linecap="round" opacity="${bank}"/>`;
    if(i===0&&age<5)body+=`<g opacity="${Math.max(0,1-(age-1)/4)}"><ellipse cx="0" cy="${top-16}" rx="5" ry="7" fill="#bdcba4"/><path d="M0 ${top-19}v6" stroke="#f2f4e6" stroke-width="1.3"/></g>`;
-   const leafCount=Math.min(3,Math.max(0,(d-84-i)/6+1));if(d>84+i)for(let l=0;l<Math.ceil(leafCount);l++){const opacity=Math.min(1,Math.max(0,leafCount-l)),yy=-height*(.45+l*.17),dir=(i+l)%2?1:-1;body+=`<path d="M0 ${yy}Q${dir*11} ${yy-22} ${dir*25} ${yy-23}Q${dir*22} ${yy-5} 0 ${yy}" fill="#789a63" opacity="${opacity}"/>`;}
+   const leafCount=Math.min(3,Math.max(0,(d-84-i)/6+1));if(d>84+i)for(let l=0;l<Math.ceil(leafCount);l++){const opacity=Math.min(1,Math.max(0,leafCount-l)),yy=-height*([.85,.68,.78][l]),dir=(i+l)%2?1:-1;body+=`<path d="M0 ${yy}Q${dir*11} ${yy-22} ${dir*25} ${yy-23}Q${dir*22} ${yy-5} 0 ${yy}" fill="#789a63" opacity="${opacity}"/>`;}
    art+=`<g data-plant="${i}" data-age="${age}" transform="translate(${p.x} ${p.y}) scale(${birth}) rotate(${[-2,3,1,-4,4,-1][i]})">${body}</g>`;
   }
   return art;
