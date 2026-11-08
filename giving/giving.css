@@ -16,3 +16,5 @@
 #heart-rewards{position:absolute;pointer-events:none;inset:0;overflow:hidden}.floating-heart{position:absolute;left:50%;bottom:calc(132px + env(safe-area-inset-bottom));font-size:36px;color:#446e4d;line-height:1}
 #recipient-label{margin-top:10px;font-size:12px;color:#36523d}.scene-controls{gap:42px}.secondary{width:46px;height:46px;border:1px solid #f6faeb77;box-shadow:none}
 @media(max-height:650px){.give-button{width:72px;height:72px;padding:20px}.floating-heart{bottom:114px}}
+
+.find-support{position:absolute;bottom:160px;left:50%;transform:translateX(-50%);border:1px solid #9caf90;background:#f5f7ed;color:#365640;border-radius:24px;padding:14px 20px;font:inherit;white-space:nowrap}.give-button[hidden],.find-support[hidden]{display:none}

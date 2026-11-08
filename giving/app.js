@@ -14,8 +14,8 @@
   $('growth-detail').textContent='One giving day. One new segment.';
   $('recipient-label').textContent=recipient?`For ${recipient.name}`:'For the San Diego community';
   $('tap-amount').textContent=`$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
-  if(!recipient){$('tap-amount').textContent='';$('give').setAttribute('aria-label','Send a heart to your bamboo');}
-  $('giving-note').textContent=!recipient?'A little love for your bamboo · No donation':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
+  $('give').hidden=!recipient;$('find-support').hidden=!!recipient;
+  $('giving-note').textContent=!recipient?'Find a person to support. Your gifts belong on their profile.':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
   $('view-trigger').setAttribute('aria-pressed',String(state.panorama));$('view-trigger').setAttribute('aria-label',state.panorama?'Show the current bamboo':'Show the whole grove');
  }
  function grow(to){
@@ -45,9 +45,10 @@
   }
   busy=false;$('give').setAttribute('aria-busy','false');render();
  }
+ $('find-support').addEventListener('click',()=>{if(parent!==window)parent.postMessage({type:'bamboo:giving-navigation',discover:true},location.origin);else location.href='index.html?view=home#organizations';});
  $('give').addEventListener('click',()=>{
   if(!state)return;$('failure').hidden=true;
-  if(!recipient){reward();$('announcement').textContent='A little love for your bamboo. No donation or growth added.';return;}
+  if(!recipient)return;
   queue.push({amountCents:state.amountCents,idempotencyKey:crypto.randomUUID(),recipient});
   if(!reduced.matches&&$('give').animate)$('give').animate([{transform:'scale(1)'},{transform:'scale(.87)',offset:.3},{transform:'scale(1)'}],{duration:180});
   render();drain();
