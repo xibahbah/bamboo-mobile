@@ -2,7 +2,8 @@
  const $=id=>document.getElementById(id),adapter=window.BambooGivingAdapter,scene=window.BambooGivingScene;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const params=new URLSearchParams(location.search);
- const recipient=params.get('recipient')?{id:params.get('recipient').slice(0,80),name:(params.get('name')||'This community member').slice(0,100),storyId:(params.get('story')||'').slice(0,100)}:null;
+ const organizationId=params.get('recipient'),organizationName=Object.hasOwn(adapter.organizations||{},organizationId)?adapter.organizations[organizationId]:null;
+ const recipient=organizationName?{id:organizationId,name:organizationName,storyId:(params.get('story')||'').slice(0,100)}:null;
  let state,visualDays=0,busy=false,animation=0,queue=[];
  const fail=message=>{$('failure').textContent=message;$('failure').hidden=false;};
  function render(){
@@ -15,7 +16,7 @@
   $('recipient-label').textContent=recipient?`For ${recipient.name}`:'For the San Diego community';
   $('tap-amount').textContent=`$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
   $('give').hidden=!recipient;$('find-support').hidden=!!recipient;
-  $('giving-note').textContent=!recipient?'Find a person to support. Your gifts belong on their profile.':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
+  $('giving-note').textContent=!recipient?'Choose an organization. People receiving support stay anonymous.':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
   $('view-trigger').setAttribute('aria-pressed',String(state.panorama));$('view-trigger').setAttribute('aria-label',state.panorama?'Show the current bamboo':'Show the whole grove');
  }
  function grow(to){

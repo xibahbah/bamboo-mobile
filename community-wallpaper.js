@@ -13,7 +13,7 @@
  sheet.addEventListener('close',()=>picker.focus());
  const field=document.getElementById('portrait-field');let sizeCache='';
  const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- function localMember(){try{const app=JSON.parse(localStorage.getItem('bamboo-ui-v1'))||{},giving=JSON.parse(localStorage.getItem('bamboo-giving-v1'))||{};return {id:'self',name:app.name||'You',initial:(app.name||'You').slice(0,1),location:window.BambooLocation.current,county:'san-diego-county',streak:Number.isInteger(giving.streak)?giving.streak:app.paid?15:14,optedIn:app.wall===true};}catch{return null;}}
+ function localMember(){try{const app=JSON.parse(localStorage.getItem('bamboo-org-ui-v1'))||{},giving=JSON.parse(localStorage.getItem('bamboo-org-giving-v1'))||{};return {id:'self',name:app.name||'You',initial:(app.name||'You').slice(0,1),location:window.BambooLocation.current,county:'san-diego-county',streak:Number.isInteger(giving.streak)?giving.streak:app.paid?15:14,optedIn:app.wall===true};}catch{return null;}}
 
  function draw(){
   const area=window.BambooLocation.current,people=[...candidates,localMember()].filter(Boolean).filter(p=>p.optedIn&&p.streak>=15&&(area==='san-diego-county'?p.county===area:p.location===area));
@@ -37,6 +37,6 @@
  }
  function highlight(target){const bubble=target.closest('.bubble');if(!bubble)return;bubble.classList.remove('touched');requestAnimationFrame(()=>bubble.classList.add('touched'));}
  field.addEventListener('pointerdown',e=>highlight(e.target));field.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();highlight(e.target);}});field.addEventListener('animationend',e=>{if(e.animationName==='touch-light')e.target.classList.remove('touched');});
- window.addEventListener('storage',event=>{if(['bamboo-ui-v1','bamboo-giving-v1',null].includes(event.key)){sizeCache='';draw();}});
+ window.addEventListener('storage',event=>{if(['bamboo-org-ui-v1','bamboo-org-giving-v1',null].includes(event.key)){sizeCache='';draw();}});
  new ResizeObserver(draw).observe(field);window.addEventListener('bamboo-location-change',()=>{sizeCache='';draw();});draw();
 })();

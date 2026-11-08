@@ -114,3 +114,5 @@ body:has(.community-wallpaper-frame:not([hidden])) .page{max-width:none;padding:
 
 .bamboo-arrival-halo{position:fixed;z-index:46;pointer-events:none;width:34px;height:34px;border:1.5px solid #99b47e;border-radius:50%;background:radial-gradient(circle,#b9cc9b33,transparent 70%)}
 .profile-flying-heart{filter:drop-shadow(0 3px 5px #456d5020)}
+
+.donor-directory{padding:20px}.donor-directory .button{margin:8px 8px 0 0}body:has(.community-wallpaper-frame:not([hidden])) .community-wallpaper-frame{height:calc(100dvh - 330px);min-height:260px}
