@@ -5,7 +5,12 @@
  const members=Array.from({length:180},(_,id)=>({id,name:names[id%36],portrait:id%36,location:areas[id%5],county:'san-diego-county',streak:15+(id*7)%46,optedIn:true}));
  const cityMembers=['los-angeles','san-francisco'].flatMap((location,city)=>Array.from({length:36},(_,i)=>({id:1000+city*36+i,name:names[i],portrait:i,location,county:location,streak:15+i,optedIn:true,newPortrait:true})));
  const candidates=[...members,...cityMembers,{id:900,county:'san-diego-county',location:'north-park',streak:14,optedIn:true},{id:901,county:'san-diego-county',location:'north-park',streak:30,optedIn:false}];
- const picker=document.getElementById('wall-community');picker.innerHTML=window.BambooLocation.options();picker.addEventListener('change',()=>window.BambooLocation.set(picker.value));
+ const picker=document.getElementById('wall-community'),sheet=document.getElementById('city-picker'),options=document.getElementById('city-options');
+ function cityOptions(){options.replaceChildren();for(const [id,name] of window.BambooLocation.areas){const button=document.createElement('button');button.type='button';button.className='city-option';button.setAttribute('aria-pressed',String(id===window.BambooLocation.current));const label=document.createElement('span');label.textContent=name;const check=document.createElement('span');check.className='city-check';check.textContent=id===window.BambooLocation.current?'✓':' ';check.setAttribute('aria-hidden','true');button.append(label,check);button.addEventListener('click',()=>{window.BambooLocation.set(id);sheet.close();picker.focus();});options.append(button);}}
+ picker.addEventListener('click',()=>{cityOptions();sheet.showModal();});
+ document.getElementById('city-close').addEventListener('click',()=>sheet.close());
+ sheet.addEventListener('click',event=>{if(event.target!==sheet)return;const r=sheet.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)sheet.close();});
+ sheet.addEventListener('close',()=>picker.focus());
  const field=document.getElementById('portrait-field');let sizeCache='';
  const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function localMember(){try{const app=JSON.parse(localStorage.getItem('bamboo-ui-v1'))||{},giving=JSON.parse(localStorage.getItem('bamboo-giving-v1'))||{};return {id:'self',name:app.name||'You',initial:(app.name||'You').slice(0,1),location:window.BambooLocation.current,county:'san-diego-county',streak:Number.isInteger(giving.streak)?giving.streak:app.paid?15:14,optedIn:app.wall===true};}catch{return null;}}
@@ -13,7 +18,7 @@
  function draw(){
   const area=window.BambooLocation.current,people=[...candidates,localMember()].filter(Boolean).filter(p=>p.optedIn&&p.streak>=15&&(area==='san-diego-county'?p.county===area:p.location===area));
   const rect=field.getBoundingClientRect(),key=[area,rect.width,rect.height,JSON.stringify(people)].join(':');if(key===sizeCache)return;sizeCache=key;
-  picker.value=area;document.getElementById('location-name').textContent=window.BambooLocation.name();document.getElementById('member-count').textContent=people.length+' demo members';document.getElementById('empty').hidden=people.length!==0;
+  picker.setAttribute('aria-label','Change community: '+window.BambooLocation.name());document.getElementById('location-name').textContent=window.BambooLocation.name();document.getElementById('member-count').textContent=people.length+' demo members';document.getElementById('empty').hidden=people.length!==0;
   if(!people.length){field.innerHTML='';return;}
   // Fixed equal circles touch tangentially in a hexagonal lattice. Center-first slots
   // make a compact cloud, without reordering on touches, timers, or focus.

@@ -4,16 +4,16 @@
 
 | Time | Speaker | Slide / screen | Main point |
 |---|---|---|---|
-| 0:00–0:40 | 1 | 1. Small acts, real belonging | The problem |
-| 0:40–1:20 | 1 | 2. Care without competition | Why the problem matters |
-| 1:20–2:00 | 2 | 3. Meet Bamboo | The core experience |
-| 2:00–2:40 | 2 | 4. A habit, not a leaderboard | Growth and widget demo |
+| 0:00–0:35 | 1 | 1. A little good, every day | The problem |
+| 0:35–1:20 | 1 | 2. The problem is bigger than a donation button | Why the problem matters |
+| 1:20–2:00 | 2 | 3. Meet the person behind the story | The core experience |
+| 2:00–2:40 | 2 | 4. Consistency earns growth | Growth and widget demo |
 | 2:40–3:20 | 3 | 5. A community of equals | Humanities and dignity |
-| 3:20–4:00 | 3 | 6. What comes next | Prototype limits and closing |
+| 3:20–4:00 | 3 | 6. Make everyday care easier | Prototype limits and closing |
 
 ## Speaker 1 — Problem and idea — 0:00–1:20
 
-[Slide 1: “Small acts. Real belonging.”]
+[Slide 1: “A little good, every day”]
 
 Think about the last time you wanted to help someone, but thought: “I don’t have enough money to make a difference.”
 
@@ -23,7 +23,7 @@ Those are the two experiences we designed Bamboo around.
 
 Our challenge is simple: how can giving feel accessible to someone with very little to spare, while helping people see one another as whole human beings?
 
-[Slide 2: “Care without competition.”]
+[Slide 2: “The problem is bigger than a donation button”]
 
 We wanted to remove three pressures: the pressure to give a large amount, the pressure to compete for recognition, and the pressure to tell a painful story in exchange for help.
 
@@ -65,7 +65,7 @@ A recipe can carry a family’s history. A personal story can help neighbors rec
 
 Our Community wall reflects that idea. Every portrait has the same size. There are no donation rankings. Appearing requires a fifteen-day streak and an active choice to be visible; members can withdraw that choice.
 
-[Slide 6: “Small enough to start. Human enough to matter.”]
+[Slide 6: “Make everyday care easier”]
 
 Today, Bamboo is an interactive prototype. Gifts are simulated, messages stay in the browser, and the wall uses fictional portraits. Our next steps are verified community partners, real payment infrastructure, and server-backed consent and accountability.
 
