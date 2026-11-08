@@ -24,10 +24,11 @@
  }
  function apply(){if(!doc.body)return;doc.documentElement.lang=language;const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT,{acceptNode(node){if(node.nodeType===1)return /^(SCRIPT|STYLE|SVG|TEXTAREA|OPTION)$/.test(node.tagName)||node.hasAttribute('data-no-translate')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_SKIP;return NodeFilter.FILTER_ACCEPT;}});let node;while(node=walker.nextNode()){const old=originals.get(node),source=old&&node.nodeValue===old.rendered?old.source:node.nodeValue;const rendered=t(source);originals.set(node,{source,rendered});if(node.nodeValue!==rendered)node.nodeValue=rendered;}
  const selector=doc.getElementById('app-language');if(selector)selector.value=language;
+ doc.querySelectorAll('input[name="app-language"]').forEach(input=>{input.checked=input.value===language;});
  }
  function set(value){if(!supported.includes(value))return false;language=value;try{localStorage.setItem(key,value);}catch{}if(window.BambooLocale)window.BambooLocale.set(value);apply();return true;}
  language=read();window.BambooI18n={t,set,apply,current:()=>language};
- doc.addEventListener('change',event=>{if(event.target.id==='app-language')set(event.target.value);});
+ doc.addEventListener('change',event=>{if(event.target.id==='app-language'||event.target.matches('input[name="app-language"]'))set(event.target.value);});
  window.addEventListener('storage',event=>{if(event.key===key||event.key===null){language=read();apply();}});
  window.addEventListener('bamboo-language-change',()=>{language=read();apply();});
  let pending=false;new MutationObserver(()=>{if(pending)return;pending=true;queueMicrotask(()=>{pending=false;apply();});}).observe(doc.body,{childList:true,subtree:true,characterData:true});apply();

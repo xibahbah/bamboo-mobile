@@ -120,3 +120,28 @@ body:has(.community-wallpaper-frame:not([hidden])) .page{max-width:none;padding:
 .verification{display:inline-block;font-size:10px;font-weight:600;line-height:1.5;border-radius:6px;padding:3px 6px;background:#e6eddf;color:#466244;white-space:nowrap}.verification.pending{background:#eeeae1;color:#7b6c50}.post-head .org-mark{margin-left:auto}.post-head .verification{font-size:9px}.support-directory>.button{justify-content:space-between;flex-wrap:wrap;text-align:left}.allocation-list{grid-column:1/-1;width:100%;margin:10px 0;padding-left:18px;font-size:12px}.allocation-list li{padding:4px 0}.allocation-list span{float:right}
 
 .language-setting{display:grid;gap:12px;font-weight:600}.language-setting select{width:100%;min-height:52px;padding:12px 16px;border:1px solid #ccd6c7;border-radius:14px;background:#f6f8f1;color:#294b37;font:inherit}
+
+/* In-page language choices avoid native menus escaping the phone iframe. */
+fieldset.language-setting{border:0;padding:0;margin:0;min-width:0}
+.language-setting legend{padding:0;margin-bottom:12px;font-size:13px}
+.language-options{display:grid;gap:8px}
+.language-options label{display:flex;align-items:center;gap:12px;min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;background:var(--paper)}
+.language-options label:has(:checked){border-color:#648168;background:#e9efe3;color:#294b37}
+.language-options input{appearance:auto;flex:0 0 18px;width:18px;height:18px;min-height:0;margin:0;padding:0;accent-color:#486d50}
+.language-options label:focus-within{outline:2px solid #648168;outline-offset:2px}
+#main,.panel,.stack,.post-column,.row>div,.finance-links button>span,.message-row>span{min-width:0}
+h1,h2,h3,.button,.finance-links strong,.finance-links small,.message-row strong{overflow-wrap:anywhere}
+.finance-links button>span{flex:1}.finance-links b{flex-shrink:0;overflow-wrap:anywhere}.finance-links .icon{flex-shrink:0}
+.post-head{flex-wrap:wrap;gap:6px}.post-head .author{flex:1 1 140px}.post-head .org-mark{margin-left:0;max-width:100%}.verification{white-space:normal;overflow-wrap:anywhere}.post-head .post-more{margin-left:auto}
+.post-head .author small>span{display:inline;font:inherit}
+.filters{flex-wrap:wrap;gap:8px 18px}.filter{white-space:normal}.theme-options{grid-template-columns:repeat(3,minmax(0,1fr))}.theme-choice{min-width:0;overflow-wrap:anywhere}
+.profile-gift-row{flex-wrap:wrap}.profile-gift-row .button{white-space:normal}
+#bottom-nav button{min-width:0;overflow-wrap:anywhere;line-height:1.25}
+@media(max-width:380px){.finance-links button{padding:16px;gap:10px}.finance-links strong{font-size:17px}.finance-links b{font-size:15px}.post-head .author{flex-basis:120px}}
+@media(max-width:350px){#bottom-nav button{font-size:9px}}
+/* Verification is text, not the old fixed 16px organization icon. */
+.post-head{display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:start}
+.post-head .author{grid-column:1;grid-row:1}
+.post-head .post-more{grid-column:2;grid-row:1}
+.post-head .org-mark{grid-column:1/-1;grid-row:2;width:auto;height:auto;display:block;justify-self:start;border-radius:0;background:none;margin:0;max-width:100%}
+.post-head .verification{display:block;line-height:1.5}
