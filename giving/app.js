@@ -13,10 +13,10 @@
   const units=Math.floor(visualDays),amount=((state.amountCents||0)/100).toFixed(2);
   $('growth-title').textContent=units===0?'A little beginning':units>=84?'Your grove is growing leaves':`${Math.min(6,Math.floor(units/14))} bamboo · ${units%14} / 14 segments`;
   $('growth-detail').textContent='One giving day. One new segment.';
-  $('recipient-label').textContent=recipient?`For ${recipient.name}`:'For the San Diego community';
-  $('tap-amount').textContent=`$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
-  $('give').hidden=!recipient;$('find-support').hidden=!!recipient;
-  $('giving-note').textContent=!recipient?'Choose an organization. People receiving support stay anonymous.':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
+  $('recipient-label').textContent=recipient?`For ${recipient.name}`:'General donation';
+  $('tap-amount').textContent=recipient?`$${amount} / tap`:`General donation\n$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
+  $('give').hidden=false;$('find-support').hidden=!!recipient;if(!recipient)$('give').setAttribute('aria-label',`General donation $${amount} · demo, no real charge`);
+  $('giving-note').textContent=!recipient?'Split evenly across demo-verified organizations · See receipts · No real charge':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
   $('view-trigger').setAttribute('aria-pressed',String(state.panorama));$('view-trigger').setAttribute('aria-label',state.panorama?'Show the current bamboo':'Show the whole grove');
  }
  function grow(to){
@@ -49,7 +49,7 @@
  $('find-support').addEventListener('click',()=>{if(parent!==window)parent.postMessage({type:'bamboo:giving-navigation',discover:true},location.origin);else location.href='index.html?view=home#organizations';});
  $('give').addEventListener('click',()=>{
   if(!state)return;$('failure').hidden=true;
-  if(!recipient)return;
+
   queue.push({amountCents:state.amountCents,idempotencyKey:crypto.randomUUID(),recipient});
   if(!reduced.matches&&$('give').animate)$('give').animate([{transform:'scale(1)'},{transform:'scale(.87)',offset:.3},{transform:'scale(1)'}],{duration:180});
   render();drain();

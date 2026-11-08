@@ -116,3 +116,5 @@ body:has(.community-wallpaper-frame:not([hidden])) .page{max-width:none;padding:
 .profile-flying-heart{filter:drop-shadow(0 3px 5px #456d5020)}
 
 .donor-directory{padding:20px}.donor-directory .button{margin:8px 8px 0 0}body:has(.community-wallpaper-frame:not([hidden])) .community-wallpaper-frame{height:calc(100dvh - 330px);min-height:260px}
+
+.verification{display:inline-block;font-size:10px;font-weight:600;line-height:1.5;border-radius:6px;padding:3px 6px;background:#e6eddf;color:#466244;white-space:nowrap}.verification.pending{background:#eeeae1;color:#7b6c50}.post-head .org-mark{margin-left:auto}.post-head .verification{font-size:9px}.support-directory>.button{justify-content:space-between;flex-wrap:wrap;text-align:left}.allocation-list{grid-column:1/-1;width:100%;margin:10px 0;padding-left:18px;font-size:12px}.allocation-list li{padding:4px 0}.allocation-list span{float:right}
