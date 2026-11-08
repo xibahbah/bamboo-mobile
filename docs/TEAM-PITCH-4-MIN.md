@@ -1,85 +1,87 @@
-# Bamboo — Four-minute pitch for three speakers
+# Bamboo — Organization-first demo pitch
 
-**Language:** English. **Delivery:** conversational, about 130 words per minute, with short demo pauses. Rehearse once with a timer. Bracketed cues are not spoken.
+English speech for three speakers. About four minutes including short demo pauses. Bracketed cues are not spoken. Each speaker has about 80 seconds.
 
-| Time | Speaker | Slide / screen | Main point |
-|---|---|---|---|
-| 0:00–0:35 | 1 | 1. A little good, every day | The problem |
-| 0:35–1:20 | 1 | 2. The problem is bigger than a donation button | Why the problem matters |
-| 1:20–2:00 | 2 | 3. Meet the person behind the story | The core experience |
-| 2:00–2:40 | 2 | 4. Consistency earns growth | Growth and widget demo |
-| 2:40–3:20 | 3 | 5. A community of equals | Humanities and dignity |
-| 3:20–4:00 | 3 | 6. Make everyday care easier | Prototype limits and closing |
+## Speaker 1 — The need and our principle — 0:00–1:20
 
-## Speaker 1 — Problem and idea — 0:00–1:20
+[Keep the phone home screen visible.]
 
-[Slide 1: “A little good, every day”]
+Imagine needing help with groceries this week.
 
-Think about the last time you wanted to help someone, but thought: “I don’t have enough money to make a difference.”
+You might be willing to speak privately with a local organization. Publishing your name, your face, and your situation could feel very different.
 
-Now think about being on the other side: needing support, but not wanting your entire identity to become a story about hardship.
+We believe people should be able to receive support without making their hardship public.
 
-Those are the two experiences we designed Bamboo around.
+At the same time, someone nearby may want to help, with only a few cents to spare. They need a clear place to give. They also need to know who is responsible for the money.
 
-Our challenge is simple: how can giving feel accessible to someone with very little to spare, while helping people see one another as whole human beings?
+Bamboo brings those needs together.
 
-[Slide 2: “The problem is bigger than a donation button”]
+Donors support organizations. Organizations manage assistance privately and publish updates about their work. People receiving help stay anonymous in the app.
 
-We wanted to remove three pressures: the pressure to give a large amount, the pressure to compete for recognition, and the pressure to tell a painful story in exchange for help.
+Our inspiration is a bamboo coin bank. You put in a little when you can. Small contributions become a habit that more people can afford to join.
 
-Bamboo brings small acts of giving together with everyday stories, family recipes, and cultural memories.
+The question behind Bamboo is simple: how can a community practice generosity while respecting the privacy of the people it helps?
 
-The idea is inspired by a bamboo coin bank: one small contribution may seem modest, but caring becomes meaningful when people participate together.
+## Speaker 2 — The product — 1:20–2:40
 
-Here is how that idea becomes an experience.
+[Open Bamboo. Continue speaking during the opening.]
 
-## Speaker 2 — Product and demonstration — 1:20–2:40
+Here is how it works.
 
-[Slide 3 / demo: phone home screen. Tap the Bamboo icon.]
+[Open Organizations, then Shared Roots.]
 
-This is Bamboo. The opening turns a bamboo coin bank into a growing grove, followed by a short daily reflection.
+You can browse organizations by cause, including food, housing, language, and accessibility. Every public post belongs to an organization.
 
-The Home feed brings together organization updates and personal stories. You can open someone’s profile to discover their recipes and traditions, or choose a story to support.
+This is Shared Roots. Its programs support language access and cultural belonging.
 
-The giving screen shows the amount before you tap. Each successful demo gift has a brief heart animation, and you can find the receipt in Transaction History.
+[Tap Give once.]
 
-[Slide 4 / demo: show Grove, then the home-screen widget.]
+The button shows the amount before you give. The heart travels to your bamboo, while you stay on the post.
 
-The important distinction is that money does not buy faster growth.
+You choose the amount per tap in Finance. Every successful gift appears in Transaction History.
 
-Your first successful gift of a day earns a segment. More gifts that day do not add more segments. Fourteen giving days complete one bamboo, and the grove grows to six stalks before adding leaves.
+[Open Grove. Tap General donation.]
 
-The grove heart is simply an expression of care. It does not charge you or increase your streak.
+You can also make a general donation. Our current demo divides it evenly across organizations marked as verified in the demo. The receipt shows each allocation.
 
-Our home-screen widget makes that habit visible. This slider is a demonstration tool: it previews growth across days without changing anyone’s actual records.
+Those verification labels are simulated. They demonstrate how we would make review status visible.
 
-## Speaker 3 — Humanities, trust, and closing — 2:40–4:00
+Your bamboo grows once per giving day. Additional gifts that day keep the same growth.
 
-[Slide 5 / demo: Community wall.]
+The bamboo gives a small, visible acknowledgment of your habit. You can check it later, then return to the organizations you support.
 
-Why is this a humanities project?
+## Speaker 3 — Culture, trust, and what comes next — 2:40–4:00
 
-Because giving is also about dignity, identity, and belonging.
+[Open Impact & culture and show a recipe.]
 
-A recipe can carry a family’s history. A personal story can help neighbors recognize something familiar in one another. Someone receiving support today may choose to contribute tomorrow, without being assigned a permanent role as a donor or recipient.
+Our humanities focus also shapes what people see here.
 
-Our Community wall reflects that idea. Every portrait has the same size. There are no donation rankings. Appearing requires a fifteen-day streak and an active choice to be visible; members can withdraw that choice.
+Organizations can publish recipes and cultural material without revealing the contributor. A familiar dish can carry a language, a family memory, or a sense of home.
 
-[Slide 6: “Make everyday care easier”]
+Sharing should always be optional. Receiving help should never depend on providing a public story.
 
-Today, Bamboo is an interactive prototype. Gifts are simulated, messages stay in the browser, and the wall uses fictional portraits. Our next steps are verified community partners, real payment infrastructure, and server-backed consent and accountability.
+[Show Community.]
 
-We are starting with a simple question: how do we make everyday care easier to practice?
+Donors can meet other donors and share organization posts. The wall gives every portrait equal space, and members choose whether to appear.
 
-Bamboo is our answer: start small, show up with kindness, and help a city feel more like a community.
+Today, Bamboo is a prototype. Payments, organizations, and social actions are simulated.
+
+Next, we want to work with a local organization to test private support requests and useful spending reports.
+
+We need real organization checks, secure payments, and fees that make small gifts practical. We also want allocation rules that reflect reported needs and remain easy to explain.
+
+We would ask both donors and people receiving support whether the experience feels clear and respectful.
+
+Our goal is a community where small gifts are welcome, organizations are accountable, and receiving help does not cost someone their privacy.
 
 Thank you.
 
-## Delivery notes
+## Demo preparation
 
-- Speaker 1 establishes the problem; avoid clicking through the interface yet.
-- Speaker 2 owns the demo. Keep the app and widget ready; do not demonstrate every feature.
-- Speaker 3 explains why the design matters and gives the honest prototype boundary.
-- Show the slider briefly at day 3, day 14, and day 84. Do not wait through all stages.
-- If the live demo stalls, continue speaking and use screenshots; the argument should stand without the animation.
-- Do not claim real donations, real users, verified beneficiaries, native iPhone installation, or measured impact.
+- Speaker 1: phone home screen.
+- Speaker 2: Organizations → Shared Roots → Give → Grove → General donation.
+- Speaker 3: Home → Impact & culture → recipe → Community.
+- Keep Finance and Transaction History available for questions rather than adding extra screen changes during the speech.
+- Verification is simulated. Do not describe fictional organizations as real partners.
+- General allocation currently uses equal shares with rotating remainder cents. Do not claim a needs-based algorithm already exists.
+- This version does not expose beneficiary profiles or permit direct donations to individuals.
