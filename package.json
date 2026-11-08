@@ -8,7 +8,8 @@
     "check": "node --check ui.js && node --check intro.js && node --check daily.js && node --check intro-motion.js && node --check giving/app.js && node --check giving/scene.js && node --check giving/adapter.js",
     "assets": "python3 scripts/build_assets.py && python3 scripts/build_bank.py",
     "test": "node --test tests/*.test.cjs",
-    "intro:build": "python3 scripts/build_intro_frames.py && python3 scripts/build_intro_motion.py"
+    "intro:build": "python3 scripts/build_intro_frames.py && python3 scripts/build_intro_motion.py",
+    "preview": "python3 scripts/serve_preview.py"
   },
   "devDependencies": {
     "jsdom": "^26.1.0"

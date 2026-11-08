@@ -1,14 +1,56 @@
 (async function(){
  const $=id=>document.getElementById(id),adapter=window.BambooGivingAdapter,scene=window.BambooGivingScene;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- let state,visualDays=0,busy=false,animation=0;
+ const params=new URLSearchParams(location.search);
+ const recipient=params.get('recipient')?{id:params.get('recipient').slice(0,80),name:(params.get('name')||'This community member').slice(0,100),storyId:(params.get('story')||'').slice(0,100)}:null;
+ let state,visualDays=0,busy=false,animation=0,queue=[];
  const fail=message=>{$('failure').textContent=message;$('failure').hidden=false;};
- function render(){if(!state)return;$('landscape').innerHTML=scene.render({days:visualDays,environment:state.environment,panorama:state.panorama,aspect:innerWidth/innerHeight});$('streak-value').textContent=state.streak;$('streak-value').parentElement.setAttribute('aria-label',`${state.streak} day giving streak`);$('view-trigger').setAttribute('aria-pressed',String(state.panorama));$('view-trigger').setAttribute('aria-label',state.panorama?'Show the current bamboo':'Show the whole grove');$('view-icon').setAttribute('d',state.panorama?'M4 9h5V4M20 9h-5V4M9 20v-5H4M15 20v-5h5':'M9 4H4v5M15 4h5v5M4 15v5h5M20 15v5h-5');}
- function grow(from,to){return new Promise(resolve=>{if(reduced.matches||from===to){visualDays=to;render();resolve();return;}const start=performance.now();function frame(now){const t=Math.min(1,(now-start)/1600),ease=t*t*(3-2*t);visualDays=from+(to-from)*ease;render();if(t<1)animation=requestAnimationFrame(frame);else{animation=0;resolve();}}animation=requestAnimationFrame(frame);});}
- $('give').addEventListener('click',async()=>{
-  if(busy||!state)return;busy=true;$('give').disabled=true;$('give').setAttribute('aria-busy','true');$('failure').hidden=true;
-  try{const current=await adapter.load();const result=await adapter.donate({amountCents:current.amountCents,idempotencyKey:crypto.randomUUID()});if(!Number.isInteger(result.growthDays)||result.growthDays<0||(!Number.isInteger(result.streak)||result.streak<0))throw new Error('Growth could not be confirmed. Please retry.');const before=visualDays;state={...state,...result,environment:state.environment,panorama:state.panorama};$('give').setAttribute('aria-busy','false');await grow(before,state.growthDays);$('announcement').textContent=`Preview complete. Growth day ${state.growthDays}. No real payment.`;
-  }catch(error){fail(error.message||'Couldn’t complete this preview. Try again.');}finally{busy=false;$('give').disabled=false;$('give').setAttribute('aria-busy','false');}
+ function render(){
+  if(!state)return;
+  $('landscape').innerHTML=scene.render({days:visualDays,environment:state.environment,panorama:state.panorama,aspect:innerWidth/innerHeight});
+  $('streak-value').textContent=state.streak;$('streak-value').parentElement.setAttribute('aria-label',`${state.streak} day giving streak`);
+  const units=Math.floor(visualDays),amount=((state.amountCents||0)/100).toFixed(2);
+  $('growth-title').textContent=units===0?'A little beginning':units>=84?'Your grove is growing leaves':`${Math.min(6,Math.floor(units/14))} bamboo · ${units%14} / 14 segments`;
+  $('growth-detail').textContent='One giving day. One new segment.';
+  $('recipient-label').textContent=recipient?`For ${recipient.name}`:'For the San Diego community';
+  $('tap-amount').textContent=`$${amount} / tap`;$('give').setAttribute('aria-label',`Give $${amount} · demo, no real charge`);
+  if(!recipient){$('tap-amount').textContent='';$('give').setAttribute('aria-label','Send a heart to your bamboo');}
+  $('giving-note').textContent=!recipient?'A little love for your bamboo · No donation':queue.length?`${queue.length} taps waiting · Demo, no real charge`:'Each tap gives once · Demo, no real charge';
+  $('view-trigger').setAttribute('aria-pressed',String(state.panorama));$('view-trigger').setAttribute('aria-label',state.panorama?'Show the current bamboo':'Show the whole grove');
+ }
+ function grow(to){
+  cancelAnimationFrame(animation);const from=visualDays;
+  if(reduced.matches||from===to){visualDays=to;render();return;}
+  const start=performance.now();
+  function frame(now){const t=Math.min(1,(now-start)/480);visualDays=from+(to-from)*t*t*(3-2*t);render();if(t<1)animation=requestAnimationFrame(frame);else animation=0;}
+  animation=requestAnimationFrame(frame);
+ }
+ function reward(){
+  const heart=document.createElement('span');heart.className='floating-heart';heart.textContent='♥';$('heart-rewards').append(heart);
+  if(reduced.matches||!heart.animate){setTimeout(()=>heart.remove(),180);return;}
+  const drift=(Math.random()-.5)*20;const rise=Math.max(105,innerHeight*.3);
+  const effect=heart.animate([{transform:'translate(-50%, 0) scale(.65)',opacity:0},{transform:'translate(-50%, -20px) scale(1.1)',opacity:1,offset:.18},{transform:`translate(calc(-50% + ${drift}px), -${rise}px) scale(.35)`,opacity:0}],{duration:650,easing:'ease-out'});
+  effect.onfinish=()=>heart.remove();effect.oncancel=()=>heart.remove();
+ }
+ async function drain(){
+  if(busy)return;busy=true;
+  while(queue.length){
+   const request=queue.shift();$('give').setAttribute('aria-busy','true');
+   try{
+    const result=await adapter.donate(request);
+    if(!Number.isInteger(result.growthDays)||result.growthDays<0||!Number.isInteger(result.streak)||result.streak<0)throw new Error('Growth could not be confirmed.');
+    state={...state,...result,environment:state.environment,panorama:state.panorama};reward();
+    $('announcement').textContent=`$${(request.amountCents/100).toFixed(2)} demo gift completed${recipient?' for '+recipient.name:''}. ${state.growthDays} growth steps.`;
+   }catch(error){const cancelled=queue.length;queue=[];fail((error.message||'This gift did not complete.')+(cancelled?` ${cancelled} waiting taps were cancelled.`:''));}
+  }
+  busy=false;$('give').setAttribute('aria-busy','false');render();
+ }
+ $('give').addEventListener('click',()=>{
+  if(!state)return;$('failure').hidden=true;
+  if(!recipient){reward();$('announcement').textContent='A little love for your bamboo. No donation or growth added.';return;}
+  queue.push({amountCents:state.amountCents,idempotencyKey:crypto.randomUUID(),recipient});
+  if(!reduced.matches&&$('give').animate)$('give').animate([{transform:'scale(1)'},{transform:'scale(.87)',offset:.3},{transform:'scale(1)'}],{duration:180});
+  render();drain();
  });
  $('view-trigger').addEventListener('click',async()=>{if(!state)return;const next=!state.panorama;try{await adapter.savePreferences({panorama:next});state.panorama=next;render();}catch{fail('Couldn’t save this view. Try again.');}});
  $('environment-trigger').addEventListener('click',()=>{if(!state)return;document.querySelectorAll('[data-environment]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.environment===state.environment)));$('environments').showModal();});
@@ -17,5 +59,9 @@
  $('environments').addEventListener('click',event=>{if(event.target===$('environments')){const rect=event.target.getBoundingClientRect();if(event.clientY<rect.top)$('environments').close();}});
  window.addEventListener('resize',render);
  if(parent!==window){$('navigation').hidden=true;$('navigation').setAttribute('aria-label','Back to Bamboo');$('navigation').innerHTML='<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h11"/></svg>';$('navigation').addEventListener('click',event=>{event.preventDefault();parent.postMessage({type:'bamboo:giving-navigation'},location.origin);});}
- try{state=await adapter.load();visualDays=state.growthDays;render();$('give').disabled=false;}catch{fail('Couldn’t load your bamboo. Please reload.');}
+ try{state=await adapter.load();visualDays=state.growthDays;
+ const date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ let firstVisit=false;try{const key='bamboo-grove-entrance-v1';firstVisit=localStorage.getItem(key)!==date;localStorage.setItem(key,date);}catch{}
+ if(firstVisit&&!reduced.matches&&state.growthDays>0){visualDays=Math.max(0,state.growthDays-1);render();grow(state.growthDays);}else render();
+ $('give').disabled=false;}catch{fail('Couldn’t load your bamboo. Please reload.');}
 })();

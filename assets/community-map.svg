@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
+<path fill="#b7c7bf" d="M0 0h212l-4 100 28 85-25 65 30 100-25 72 24 60-16 98 36 70-22 90 30 97-40 163H0Z"/>
+<path stroke="#6e8b7c" stroke-width="3" d="m212 0-4 100 28 85-25 65 30 100-25 72 24 60-16 98 36 70-22 90 30 97-40 163"/>
+<g stroke="#809583" stroke-width="1.7"><path d="M270 0v1000M320 0v1000M380 0v1000M440 0v1000M500 0v1000M560 0v1000M620 0v1000M680 0v1000M740 0v1000"/><path d="M220 110h580M240 160h560M220 220h580M230 280h570M240 340h560M230 400h570M240 460h560M230 520h570M240 580h560M260 640h540M250 700h550M260 760h540M260 820h540M250 880h550M240 940h560"/></g>
+<g fill="#9db198"><path d="M470 310h130v150H470zM650 70h90v110h-90zM340 670h90v100h-90z"/></g>
+<g stroke="#5c7a67" stroke-width="6" stroke-linecap="round"><path d="M300-20c-60 170 70 270 45 410S280 660 360 790s10 160 30 230M820 560c-190-80-240-40-350-60S290 350 210 360"/></g>
+<g fill="#6c8375" font-family="system-ui,sans-serif" font-size="16" letter-spacing="4"><text x="70" y="490" transform="rotate(-90 70 490)">PACIFIC COAST</text><text x="450" y="270">COMMUNITY</text></g></svg>

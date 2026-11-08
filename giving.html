@@ -1,16 +1,19 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e8ede1"><title>Bamboo — Your growing kindness</title><link rel="stylesheet" href="giving/giving.css?v=1"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e8ede1"><title>Bamboo — Your growing kindness</title><link rel="stylesheet" href="giving/giving.css?v=daily-heart-1"></head>
 <body>
 <main id="giving" aria-label="Bamboo giving preview">
  <div id="landscape" aria-hidden="true"></div>
  <nav class="scene-header" aria-label="Application navigation"><a id="navigation" class="icon-button" href="index.html?view=home" aria-label="Back to Bamboo"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></a><div class="streak" aria-label="Giving streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 4C9 3 4 8 6 14s13 3 13-10ZM5 20l11-12"/></svg><span id="streak-value">—</span></div><span class="header-spacer"></span></nav>
+ <div class="growth-caption"><h1 id="growth-title"></h1><p id="growth-detail"></p><p id="recipient-label"></p></div>
  <div class="scene-controls">
-  <button class="icon-button secondary" id="environment-trigger" aria-label="Choose an environment" aria-haspopup="dialog"><svg viewBox="0 0 24 24"><path d="m3 6 6-2 6 2 6-2v15l-6 2-6-2-6 2ZM9 4v15M15 6v15"/></svg></button>
-  <button class="give-button" id="give" aria-label="Preview a donation and grow your bamboo; no real payment" disabled><svg class="button-art" viewBox="0 0 64 64" aria-hidden="true"><circle class="inner-ring" cx="32" cy="32" r="28"/><path class="button-stem" d="M31 46V20M27 29h8M27 38h8"/><path class="button-leaf" d="M32 32Q35 19 47 17Q47 29 32 32ZM31 38Q18 35 16 25Q28 26 31 38Z"/></svg><svg class="pending-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg></button>
-  <button class="icon-button secondary" id="view-trigger" aria-label="Show the whole grove" aria-pressed="false"><svg viewBox="0 0 24 24"><path id="view-icon" d="M9 4H4v5M15 4h5v5M4 15v5h5M20 15v5h-5"/></svg></button>
+  <button class="icon-button secondary" id="environment-trigger" aria-label="Choose an environment" aria-haspopup="dialog"><svg viewBox="0 0 24 24"><path d="m3 6 6-2 6 2 6-2v15l-6 2-6-2-6 2ZM9 4v15M15 6v15"/></svg><span class="control-label">Scene</span></button>
+  <button class="give-button" id="give" aria-label="Give $0.10 · demo, no real charge" disabled><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="control-label" id="tap-amount">$0.10 / tap</span></button>
+  <button class="icon-button secondary" id="view-trigger" aria-label="Show the whole grove" aria-pressed="false"><svg viewBox="0 0 24 24"><path id="view-icon" d="M9 4H4v5M15 4h5v5M4 15v5h5M20 15v5h-5"/></svg><span class="control-label">Grove</span></button>
  </div>
+ <div id="heart-rewards" aria-hidden="true"></div>
+ <p id="giving-note" class="giving-note"></p>
  <p id="failure" role="alert" hidden></p><p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
 </main>
 <dialog id="environments" aria-labelledby="environment-title"><div class="sheet-heading"><h2 id="environment-title">A place to grow</h2><button class="icon-button" id="environment-close" aria-label="Close environment selection"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div class="environment-options"><button data-environment="forest"><span class="swatch forest"></span><span>Forest</span><span class="selected-mark" aria-hidden="true">✓</span></button><button data-environment="coast"><span class="swatch coast"></span><span>Coast</span><span class="selected-mark" aria-hidden="true">✓</span></button><button data-environment="desert"><span class="swatch desert"></span><span>Desert</span><span class="selected-mark" aria-hidden="true">✓</span></button></div></dialog>
-<script src="giving/scene.js?v=1"></script><script src="giving/adapter.js?v=1"></script><script src="giving/app.js?v=1"></script>
+<script src="giving/scene.js?v=daily-heart-1"></script><script src="giving/adapter.js?v=daily-heart-1"></script><script src="giving/app.js?v=daily-heart-1"></script>
 </body></html>

@@ -84,3 +84,13 @@ body:has(dialog[open]){overflow:hidden}
 .daily-enter.button:focus-visible{outline:2px solid #40634f;outline-offset:3px}
 @media(max-width:360px){.daily-dialog{padding:30px 26px}#daily-words{font-size:27px;letter-spacing:-.4px;margin-bottom:26px}}
 @media(max-height:650px){.daily-dialog{padding:25px}.daily-content{margin-top:0}#daily-words{font-size:28px;margin-bottom:28px}}
+.story-give{border:0;border-radius:18px;padding:7px 11px;display:flex;align-items:center;gap:5px;color:var(--deep);background:var(--pale);min-height:36px;font:600 11px Bamboo,system-ui;white-space:nowrap}.story-give .icon{width:14px;height:14px;fill:var(--green);stroke:var(--green)}.post-actions{gap:12px}.post-actions .reaction.save{min-width:28px}
+
+/* The wallpaper itself has no controls; app navigation stays outside its canvas. */
+.community-wallpaper-frame{display:block;width:100%;height:calc(100dvh - 150px);min-height:380px;border:0;background:#fbfcfa;border-radius:18px}
+body:has(.community-wallpaper-frame) .page{max-width:none;padding:0}
+#account-community{width:100%;min-height:48px;padding:12px;border:1px solid #dce2d8;border-radius:12px;background:#fbfcfa;color:#354b3a;font:inherit}
+
+#bottom-nav [data-action="map"] span{max-width:78px;line-height:1.15;text-align:center;font-size:10px;white-space:normal}
+
+.transaction-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:16px 0;border-bottom:1px solid var(--line)}.transaction-row small{grid-column:1/-1;color:var(--muted)}
