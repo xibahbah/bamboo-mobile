@@ -99,3 +99,11 @@ body:has(.community-wallpaper-frame) .page{max-width:none;padding:0}
 .post-head .post-more{margin-left:auto;flex:0 0 36px;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--muted,#63766a)}
 .post-head .post-more:focus-visible{outline:2px solid #52734d;outline-offset:2px}
 .post-head .post-more .icon{width:19px;height:19px}
+
+.finance-links{display:grid;gap:12px}.finance-links button{display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;width:100%;min-height:96px;padding:20px;border:1px solid #d9e1d4;border-radius:18px;background:#edf2e8;color:#284a38;font:inherit}.finance-links strong{display:block;font-size:20px}.finance-links small{display:block;margin-top:7px;font-size:13px;color:#63766a}.finance-links b{font-size:18px;max-width:35%}.finance-panel #finance-amount{font-size:32px;min-height:72px}.payment-options{border:0;padding:0;margin:12px 0}.payment-options legend{font-size:22px;font-weight:700;margin-bottom:14px}.payment-options label{display:flex;align-items:center;gap:14px;min-height:70px;padding:16px;border:1px solid #d9e1d4;border-radius:15px;margin-bottom:10px;font-size:19px}.payment-options input{width:22px;height:22px;accent-color:#365e46}.payment-options span{margin-left:auto;font-size:13px;color:#63766a}.finance-history{min-height:72px;font-size:20px!important}
+
+/* Brief touch feedback, without animating layout or running idle effects. */
+@media(prefers-reduced-motion:no-preference){body button{transition:transform 140ms ease-out,opacity 140ms ease-out,background-color 140ms ease-out!important}body button:active{transform:scale(.96);opacity:.8}body button.tap-feedback{animation:tap-feedback 220ms ease-out!important}@keyframes tap-feedback{0%{transform:scale(.96);opacity:.8}100%{transform:scale(1);opacity:1}}}
+.post{content-visibility:auto;contain-intrinsic-size:auto 420px}
+
+.community-wallpaper-frame[hidden]{display:none!important}

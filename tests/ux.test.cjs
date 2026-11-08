@@ -74,7 +74,7 @@ test('intro morph finishes within two seconds and proceeds once to the daily ref
  a.d.getElementById('daily-enter').click();a.advance(2200);assert.equal(a.d.getElementById('daily').open,false);
 });
 test('skipping stops all pending intro work and does not reopen a dismissed quote',t=>{
- const a=introApp(t);a.advance(200);a.d.getElementById('launch-skip').click();assert.equal(a.d.getElementById('daily').open,true);
+ const a=introApp(t);a.advance(200);assert.equal(a.d.getElementById('launch-skip'),null);a.d.getElementById('launch').dispatchEvent(new a.w.Event('cancel',{cancelable:true}));assert.equal(a.d.getElementById('daily').open,true);
  a.d.getElementById('daily-enter').click();a.advance(2500);assert.equal(a.d.getElementById('daily').open,false);assert.equal(a.raf.size,0);assert.equal(a.timers.size,0);
 });
 test('Escape skips to the daily reflection rather than leaving an orphaned timer',t=>{
@@ -136,3 +136,4 @@ test('widget reads giving streak and updates across tabs without changing donati
 test('a story gift carries its author and story to the giving screen',t=>{const a=app(t);a.action('give-to:maria-story');const url=new URL(a.d.getElementById('giving-frame').getAttribute('src'),'http://localhost/');assert.equal(url.searchParams.get('recipient'),'maria');assert.equal(url.searchParams.get('name'),'Maria Rodriguez');assert.equal(url.searchParams.get('story'),'maria-story');a.action('giving');assert.equal(new URL(a.d.getElementById('giving-frame').getAttribute('src'),'http://localhost/').searchParams.get('recipient'),null);});
 
 test('launch boot gate hides the feed until the opening modal is ready',t=>{const a=app(t);a.w.eval(a.d.head.querySelector('script').textContent);assert.ok(a.d.documentElement.classList.contains('bamboo-boot'));a.w.matchMedia=()=>({matches:false,addEventListener(){}});a.w.requestAnimationFrame=()=>1;a.w.cancelAnimationFrame=()=>{};let opened=false;a.d.getElementById('launch').showModal=function(){assert.ok(a.d.documentElement.classList.contains('bamboo-boot'));this.open=true;opened=true;};for(const file of ['intro-frames.js','intro-motion.js','daily.js','intro.js'])a.w.eval(fs.readFileSync(path.join(root,file),'utf8'));assert.ok(opened);assert.equal(a.d.documentElement.classList.contains('bamboo-boot'),false);assert.equal(a.d.getElementById('launch').open,true);});
+test('preloaded opening stays idle until the app icon starts it',t=>{const a=introApp(t,{view:'preload'});assert.equal(a.d.getElementById('launch').open,true);assert.equal(a.raf.size,0);assert.equal(a.timers.size,0);a.advance(5000);assert.equal(a.d.getElementById('daily').open,false);a.w.BambooIntro.play();a.advance(6800);assert.equal(a.d.getElementById('launch').open,false);assert.equal(a.d.getElementById('daily').open,true);});

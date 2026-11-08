@@ -16,8 +16,12 @@ function changePreview(){const day=Number(document.getElementById('preview-day')
 document.getElementById('preview-day').addEventListener('input',changePreview);drawPreview(3);
 const app=document.getElementById('app'),launcher=document.getElementById('launcher'),home=document.getElementById('phone-home');
 document.getElementById('date').textContent=new Intl.DateTimeFormat('en-US',{weekday:'long',month:'long',day:'numeric'}).format(new Date());
-function phoneHome(){app.hidden=true;app.removeAttribute('src');launcher.hidden=false;home.hidden=true;document.getElementById('open-app').focus();}
-function openApp(){app.src='index.html?preview='+Date.now();launcher.hidden=true;app.hidden=false;home.hidden=false;}
+let launchRequested=false;
+function warmApp(){app.src='index.html?preview='+Date.now()+'&view=preload';}
+app.addEventListener('load',()=>{if(launchRequested)app.contentWindow.BambooIntro?.play();});
+function phoneHome(){launchRequested=false;app.hidden=true;launcher.hidden=false;home.hidden=true;warmApp();document.getElementById('open-app').focus();}
+function openApp(){launchRequested=true;launcher.hidden=true;app.hidden=false;home.hidden=false;app.contentWindow.BambooIntro?.play();}
+warmApp();
 document.getElementById('open-app').addEventListener('click',openApp);document.getElementById('open-widget').addEventListener('click',openApp);
 document.getElementById('refresh').addEventListener('click',phoneHome);home.addEventListener('click',phoneHome);
 </script></body></html>

@@ -16,3 +16,7 @@
 
 /* Keep portrait borders proportional when the complete county wall is fitted. */
 .bubble .face{inset:7%}.bubble{padding:0}.bubble::before{inset:3%}
+
+/* Keep the wall still at rest; hundreds of perpetual shadow paints stall mobile GPUs. */
+.bubble,.bubble::before{animation:none}.portrait-field{contain:layout paint}.bubble.touched::after{animation:touch-light .45s ease-out}
+@media(prefers-reduced-motion:reduce){.bubble.touched::after{animation:none}}

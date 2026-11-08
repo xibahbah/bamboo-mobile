@@ -32,12 +32,13 @@
   deadline=setTimeout(finish,duration);
   frameRequest=requestAnimationFrame(tick);
  }
- document.getElementById('launch-skip').addEventListener('click',finish);
+
  launch.addEventListener('cancel',event=>{event.preventDefault();finish();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)finish();});
  reducedMotion?.addEventListener?.('change',event=>{if(event.matches)finish();});
  window.BambooIntro={play,duration};
  const initialView=new URLSearchParams(location.search).get('view');
  if(initialView==='karma'){window.BambooDaily.show();document.documentElement.classList.remove('bamboo-boot');}
+ else if(initialView==='preload'){draw(0);launch.showModal();document.documentElement.classList.remove('bamboo-boot');}
  else if(initialView!=='home')play();
 })();
