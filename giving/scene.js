@@ -37,17 +37,18 @@
  // Small-screen illustration: deliberately broader than the full landscape stems.
  function streakColor(day){const t=Math.min(1,Math.max(0,(day-1)/29));const a=[153,170,143],b=[43,79,52];return `rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`;}
  function widget(days){
-  const count=Math.min(6,Math.max(1,Math.ceil(days/14))),gap=count>3?20:28;
-  let art='<ellipse cx="80" cy="182" rx="64" ry="7" fill="#e5eadc"/>';
-  for(let i=0;i<count;i++){
-   const age=Math.max(0,Math.min(14,days-i*14)),x=80+(i-(count-1)/2)*gap,y=180-(i%2)*3;
-   const mature=[154,120,166,138,151,111][i];const h=age<=3?38+age*9:65+(age-3)*(mature-65)/11,w=count>3?10:14;
-   let body='';
-   if(age<=3){body=`<path d="M-${w*.7} 0Q-${w} -${h*.52} 0 -${h}Q${w} -${h*.52} ${w*.7} 0Z" fill="#759563"/><path d="M0 -${h*.85}V-3" stroke="#b8ca97" stroke-width="3" stroke-linecap="round"/><path d="M-${w*.58} -${h*.28} 0 -${h*.42} ${w*.58} -${h*.28}" fill="none" stroke="#a9c18b" stroke-width="2"/>`;}
-   else{body=`<rect x="-${w/2}" y="-${h}" width="${w}" height="${h}" rx="${w*.3}" fill="${i%2?'#72915f':'#50734b'}"/><path d="M-${w*.22} -${h-9}V-6" stroke="#a5bd81" stroke-width="${w*.12}" stroke-linecap="round" opacity=".45"/>`;for(let n=1;n<=Math.min(13,Math.floor(age));n++){const yy=-h*n/(Math.floor(age)+1);body+=`<path d="M-${w*.46} ${yy}q${w*.46} 2 ${w*.92} 0" stroke="#b8cba3" stroke-opacity=".75" stroke-width="1.3" stroke-linecap="round"/>`;}}
-   const leaves=Math.max(0,Math.min(3,(days-84-i)/6+1));if(days>84+i)for(let l=0;l<Math.floor(leaves);l++){const yy=-h*.52-l*25,dir=l%2?-1:1;body+=`<path d="M0 ${yy}q${dir*10} -28 ${dir*25} -24q-${dir*3} 20 -${dir*25} 24" fill="#789b5d"/>`;}
-   art+=`<g data-plant="${i}" transform="translate(${x} ${y}) rotate(${[-3,2,-1,3,-2,4][i]})">${body}</g>`;
-  }return art;
+  const progress=Math.min(1,Math.max(0,days)/90),top=72-progress*12,bottom=174;
+  const color=streakColor(days);
+  return `<ellipse cx="80" cy="181" rx="39" ry="5" fill="#e4e9dc"/>
+   <g data-plant="0" data-art="bamboo-bank">
+    <path d="M47 ${top}H113V${bottom}C113 ${bottom+12} 47 ${bottom+12} 47 ${bottom}Z" fill="${color}"/>
+    <path d="M47 ${top}Q54 ${top+6} 60 ${top+7}V${bottom+5}Q49 ${bottom+3} 47 ${bottom}Z" fill="#ffffff" opacity=".09"/>
+    <path d="M47 ${bottom-23}Q80 ${bottom-15} 113 ${bottom-23}" fill="none" stroke="#d1ddbd" stroke-width="2" opacity=".65"/>
+    <ellipse cx="80" cy="${top}" rx="33" ry="10" fill="#b5c5a0"/>
+    <path d="M66 ${top}h28" stroke="#3b5239" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="80" cy="${top-25}" rx="10" ry="13" fill="#c2ccac"/>
+    <path d="M80 ${top-31}v12" stroke="#f4f5e9" stroke-width="2" stroke-linecap="round"/>
+   </g>`;
  }
  root.BambooGivingScene={render,plantState,layout,themes,plant,widget,streakColor};
  if(typeof module!=='undefined')module.exports=root.BambooGivingScene;
