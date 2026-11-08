@@ -147,3 +147,6 @@ h1,h2,h3,.button,.finance-links strong,.finance-links small,.message-row strong{
 .post-head .verification{display:block;line-height:1.5}
 
 .post-actions .repost{margin-left:auto;min-width:28px;justify-content:flex-end;background:none;border:0;box-shadow:none}.reaction.repost[aria-pressed=true]{color:var(--green);background:none;border:0;box-shadow:none}.reaction.repost .icon{fill:none;stroke:currentColor}.reaction.repost[aria-pressed=true] .icon{fill:none;stroke:currentColor;stroke-width:2.5}
+
+/* Brief, translucent feedback that never intercepts taps. */
+.toast{background:rgba(36,62,48,.72);color:#fff;padding:8px 14px;font-size:12px;line-height:1.4;border-radius:12px;box-shadow:none;pointer-events:none;bottom:calc(82px + env(safe-area-inset-bottom))}
